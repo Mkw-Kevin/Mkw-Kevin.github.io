@@ -1,0 +1,1114 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <meta name="keywords" content="ZRY,Kevin,ZRY-Kevin,博客,Blog">
+    
+    
+    <meta name="author" content="ZRY-Kevin">
+    
+    <!-- Completely eliminate flash of wrong theme -->
+    <script>
+        (function() {
+            const THEME_KEY = "REDEFINE-THEME-STATUS";
+            const DARK = "dark", LIGHT = "light";
+            
+            // Get preferred theme
+            function getTheme() {
+                try {
+                    const saved = localStorage.getItem(THEME_KEY);
+                    if (saved) {
+                        const { isDark } = JSON.parse(saved);
+                        return isDark ? DARK : LIGHT;
+                    }
+                } catch (e) {}
+                
+                return matchMedia("(prefers-color-scheme: dark)").matches ? DARK : LIGHT;
+            }
+            
+            // Apply theme to document
+            function applyTheme(theme) {
+                const isDark = theme === DARK;
+                const root = document.documentElement;
+                
+                // Set classes for compatibility
+                root.classList.add(theme);
+                root.classList.remove(isDark ? LIGHT : DARK);
+                root.style.colorScheme = theme;
+            }
+            
+            // Initial application
+            const theme = getTheme();
+            applyTheme(theme);
+            
+            // Listen for system preference changes
+            matchMedia("(prefers-color-scheme: dark)").addEventListener("change", ({ matches }) => {
+                // Only update if using system preference (no localStorage entry)
+                if (!localStorage.getItem(THEME_KEY)) {
+                    applyTheme(matches ? DARK : LIGHT);
+                }
+            });
+            
+            // Set body classes ASAP (before DOMContentLoaded)
+            (function() {
+                const addBodyClass = () => {
+                    const b = document.body;
+                    if (!b) return false;
+                    b.classList.add(theme + "-mode");
+                    return true;
+                };
+
+                // Try immediately
+                if (addBodyClass()) return;
+
+                // Observe until body exists
+                const mo = new MutationObserver(() => {
+                    if (addBodyClass()) mo.disconnect();
+                });
+                mo.observe(document.documentElement, { childList: true, subtree: true });
+            })();
+        })();
+    </script>
+    
+    <!-- preconnect -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+
+    
+    <!--- Seo Part-->
+    
+    <link rel="canonical" href="http://example.com/2026/05/02/爱国爱党爱人民/"/>
+    <meta name="robots" content="index,follow">
+    <meta name="googlebot" content="index,follow">
+    <meta name="revisit-after" content="1 days">
+    
+    
+        
+        <meta name="description" content="Hexo Theme Redefine, Redefine Your Hexo Journey.">
+<meta property="og:type" content="article">
+<meta property="og:title" content="爱国爱党爱人民">
+<meta property="og:url" content="http://example.com/2026/05/02/%E7%88%B1%E5%9B%BD%E7%88%B1%E5%85%9A%E7%88%B1%E4%BA%BA%E6%B0%91/index.html">
+<meta property="og:site_name" content="ZRY的博客">
+<meta property="og:description" content="Hexo Theme Redefine, Redefine Your Hexo Journey.">
+<meta property="og:locale" content="zh_CN">
+<meta property="og:image" content="http://example.com/images/redefine-og.webp">
+<meta property="article:published_time" content="2026-05-02T14:39:22.000Z">
+<meta property="article:modified_time" content="2026-05-02T14:41:33.739Z">
+<meta property="article:author" content="ZRY-Kevin">
+<meta property="article:tag" content="ZRY,Kevin,ZRY-Kevin,博客,Blog">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:image" content="http://example.com/images/redefine-og.webp">
+    
+    
+    <!--- Icon Part-->
+    <link rel="icon" type="image/png" href="/images/image.ico" sizes="192x192">
+    <link rel="apple-touch-icon" sizes="180x180" href="/images/image.ico">
+    <meta name="theme-color" content="#A31F34">
+    <link rel="shortcut icon" href="/images/image.ico">
+    <!--- Page Info-->
+    
+    <title>
+        
+            爱国爱党爱人民 | ZRY的博客
+        
+    </title>
+
+    
+<link rel="stylesheet" href="/fonts/Chillax/chillax.css">
+
+
+    <!--- Inject Part-->
+    
+
+    
+<link rel="stylesheet" href="/css/style.css">
+
+
+    
+        
+<link rel="stylesheet" href="/css/build/tailwind.css">
+
+    
+
+    
+<link rel="stylesheet" href="/fonts/GeistMono/geist-mono.css">
+
+    
+<link rel="stylesheet" href="/fonts/Geist/geist.css">
+
+    <!--- Font Part-->
+    
+    
+    
+    
+    
+    
+        
+<script src="/js/build/libs/anime.min.js"></script>
+
+    
+
+    <script id="hexo-configurations">
+    window.config = {"hostname":"example.com","root":"/","language":"zh-CN","path":"search.json"};
+    window.theme = {"articles":{"style":{"font_size":"16px","line_height":1.5,"image_border_radius":"14px","image_alignment":"center","image_caption":false,"link_icon":true,"delete_mask":false,"title_alignment":"left","headings_top_spacing":{"h1":"3.2rem","h2":"2.4rem","h3":"1.9rem","h4":"1.6rem","h5":"1.4rem","h6":"1.3rem"}},"word_count":{"enable":true,"count":true,"min2read":true},"author_label":{"enable":true,"auto":false,"list":[]},"code_block":{"copy":true,"style":"simple","highlight_theme":{"light":"github","dark":"vs2015"},"font":{"enable":false,"family":null,"url":null}},"toc":{"enable":true,"max_depth":3,"number":false,"expand":true,"init_open":true},"copyright":{"enable":true,"default":"cc_by_nc_sa"},"lazyload":true,"pangu_js":false,"recommendation":{"enable":false,"title":"推荐阅读","limit":3,"mobile_limit":2,"placeholder":"/images/wallhaven-wqery6-light.webp","skip_dirs":[]}},"colors":{"primary":"#A31F34","secondary":null,"default_mode":"light"},"global":{"fonts":{"chinese":{"enable":false,"family":null,"url":null},"english":{"enable":false,"family":null,"url":null},"title":{"enable":false,"family":null,"url":null}},"content_max_width":"1000px","sidebar_width":"210px","hover":{"shadow":true,"scale":false},"scroll_progress":{"bar":false,"percentage":true},"website_counter":{"url":"https://cn.vercount.one/js","enable":true,"site_pv":true,"site_uv":true,"post_pv":true},"single_page":true,"preloader":{"enable":true,"custom_message":"欢迎来到ZRY的博客"},"side_tools":{"gear_rotation":true,"auto_expand":false},"open_graph":{"enable":true,"image":"/images/redefine-og.webp","description":"Hexo Theme Redefine, Redefine Your Hexo Journey."},"google_analytics":{"enable":false,"id":null}},"home_banner":{"enable":true,"style":"fixed","image":{"light":"/images/wallhaven-wqery6-light.webp","dark":"/images/wallhaven-wqery6-dark.webp"},"title":"欢迎来到ZRY的博客","subtitle":{"text":["在这里遇见每一个改变世界的想法"],"hitokoto":{"enable":true,"show_author":true,"api":"https://v1.hitokoto.cn"},"typing_speed":100,"backing_speed":80,"starting_delay":500,"backing_delay":1500,"loop":true,"smart_backspace":true},"text_color":{"light":"#fff","dark":"#d1d1b6"},"text_style":{"title_size":"2.8rem","subtitle_size":"1.5rem","line_height":1.2},"custom_font":{"enable":false,"family":null,"url":null},"social_links":{"enable":true,"style":"default","links":[{"icon":"fa-brands fa-github","url":"https://github.com/Mkw-Kevin"},{"icon":"fa-brands fa-twitter","url":"https://twitter.com"},{"icon":"fa-brands fa-facebook","url":"https://facebook.com"},{"icon":"fa-solid fa-at","url":"menkaiwen0626@outlook.com"},{"icon":"fa-brands fa-telegram","url":"https://instagram.com"}],"qrs":[{"icon":"fa-brands fa-weixin","qr":null},{"icon":"/images/custom-icon.svg","qr":null}]}},"plugins":{"feed":{"enable":false},"aplayer":{"enable":false,"type":"fixed","audios":[{"name":null,"artist":null,"url":null,"cover":null,"lrc":null}]},"mermaid":{"enable":false,"version":"11.4.1","theme":{"light":"default","dark":"dark"}}},"version":"2.9.0","navbar":{"auto_hide":false,"color":{"left":"#f78736","right":"#367df7","transparency":35},"width":{"home":"1200px","pages":"1000px"},"links":{"Home":{"path":"/","icon":"fa-regular fa-house"}},"search":{"enable":true,"preload":true}},"page_templates":{"friends_column":2,"tags_style":"blur","masonry":{"batch_size":12,"initial_batch_size":24}},"home":{"sidebar":{"enable":true,"position":"left","first_item":"menu","announcement":null,"show_on_mobile":true,"links":null},"article_date_format":"YYYY-MM-DD HH:mm:ss","excerpt_length":200,"categories":{"enable":true,"limit":3},"tags":{"enable":true,"limit":3}},"footer":{"runtime":true,"icon":"<i class=\"fa-solid fa-heart fa-beat\" style=\"--fa-animation-duration: 0.5s; color: #f54545\"></i>","start":"2026/5/1 23:05:14","statistics":true,"customize":null,"icp":{"enable":false,"number":null,"url":null}},"footerStart":"2026/5/1 23:05:14","mermaid":{"style":{"light":"default","dark":"dark"}}};
+    window.lang_ago = {"second":"%s 秒前","minute":"%s 分钟前","hour":"%s 小时前","day":"%s 天前","week":"%s 周前","month":"%s 个月前","year":"%s 年前"};
+    window.i18n = {"search":"站内搜索您需要的内容...","toc":"目录","prev":"上一页","next":"下一页","prev_posts":"上一篇","next_posts":"下一篇","page":"第 %d 页","recent_posts":"最新文章","share":"分享","powered_by":"由 %s 驱动","theme":"主题","rss_feed":"RSS Feed","category":"分类","categories":"分类","tag":"标签","tags":"标签","post":"文章","posts":"文章","tagcloud":"标签云","comment":"评论","comments":"评论","top":"置顶","sticky":"置顶","go-back-home":"回到首页","masonry_loading":"照片加载中...","image_viewer":"图片查看器","close":"关闭","exif":{"title":"EXIF","cards":{"camera":"相机","lens":"镜头","exposure":"曝光","other":"其他"},"fields":{"make":"品牌","model":"机型","date_taken":"拍摄时间","lens_model":"镜头","focal_length":"焦距","focus_mode":"对焦模式","shutter":"快门","aperture":"光圈","iso":"感光度","exposure_program":"曝光程序","exposure_compensation":"曝光补偿","metering_mode":"测光模式","flash":"闪光灯","white_balance":"白平衡","latitude":"纬度","longitude":"经度","altitude":"海拔"},"status":{"loading":"加载中...","no_exif":"无 EXIF 信息","library_missing":"EXIF 库未加载","image_source_missing":"图片地址不可用","unavailable":"EXIF 不可用（可能被 CORS 阻止或缺少元数据）","flag_unavailable":"EXIF 不可用"}},"home":"首页","archive":"归档","archives":"归档","about":"关于","links":"链接","link":"链接","friends":"友情链接","friend":"友情链接","timeline":"时间轴","shuoshuo":"说说","bookmarks":"书签","site_uv":"访问人数","site_pv":"总访问量","read_more":"阅读全文","wordcount":"字","min2read":"分钟","changelog":"更新日志","status":"状态","runtime":"博客已运行","days":"天","hours":"小时","minutes":"分钟","seconds":"秒","optimized_by":"并由 Evan 进行优化","rights":"版权所有","site_posts":"共撰写了 %s 篇文章","site_wordcount":"共 %s 字","copyright":{"title":"标题","author":"作者","link":"链接","create_time":"创建于","update_time":"更新于","license_title":"版权声明","license_content":"本文章采用 %s 进行许可。","all_rights_reserved":"版权所有 &#169 %s，禁止转载。","public_domain":"本文为公有领域作品，可自由转载、引用。"},"ago":{"second":"%s 秒前","minute":"%s 分钟前","hour":"%s 小时前","day":"%s 天前","week":"%s 周前","month":"%s 个月前","year":"%s 年前"},"create_time":"创建","update_time":"更新","expired":"这篇文章最后更新于 %s 天前，内容可能已经过时。"};
+    window.data = {"masonry":false};
+  </script>
+    
+    <!--- Fontawesome Part-->
+    
+<link rel="stylesheet" href="/fontawesome/fontawesome.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/brands.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/solid.min.css">
+
+    
+<link rel="stylesheet" href="/fontawesome/regular.min.css">
+
+    
+    
+    
+    
+<meta name="generator" content="Hexo 8.1.1"></head>
+
+
+<body>
+	<div class="progress-bar-container">
+	
+
+	
+	<span class="pjax-progress-bar"></span>
+	<!--        <span class="swup-progress-icon">-->
+	<!--            <i class="fa-solid fa-circle-notch fa-spin"></i>-->
+	<!--        </span>-->
+	
+</div>
+
+<style>
+    :root {
+        --preloader-background-color: #fff;
+        --preloader-text-color: #000;
+    }
+
+    @media (prefers-color-scheme: dark) {
+        :root {
+            --preloader-background-color: #202124;
+            --preloader-text-color: #fff;
+        }
+    }
+
+    @media (prefers-color-scheme: light) {
+        :root {
+            --preloader-background-color: #fff;
+            --preloader-text-color: #000;
+        }
+    }
+
+    @media (max-width: 600px) {
+        .ml13 {
+            font-size: 2.6rem !important; /* Adjust this value as needed */
+        }
+    }
+
+    .preloader {
+        display: flex;
+        flex-direction: column;
+        gap: 1rem; /* Tailwind 'gap-4' is 1rem */
+        align-items: center;
+        justify-content: center;
+        position: fixed;
+        padding: 12px;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+        width: 100vw;
+        height: 100vh; /* 'h-screen' is 100% of the viewport height */
+        background-color: var(--preloader-background-color);
+        z-index: 1100; /* 'z-[1100]' sets the z-index */
+        transition: opacity 0.2s ease-in-out;
+    }
+
+    .ml13 {
+        font-size: 3.2rem;
+        /* text-transform: uppercase; */
+        color: var(--preloader-text-color);
+        letter-spacing: -1px;
+        font-weight: 500;
+        font-family: 'Chillax-Variable', sans-serif;
+        text-align: center;
+    }
+
+    .ml13 .word {
+        display: inline-flex;
+        flex-wrap: wrap;
+        white-space: nowrap;
+    }
+
+    .ml13 .letter {
+        display: inline-block;
+        line-height: 1em;
+    }
+</style>
+
+<div class="preloader">
+    <h2 class="ml13">
+        欢迎来到ZRY的博客
+    </h2>
+    <script>
+        var textWrapper = document.querySelector('.ml13');
+        // Split text into words
+        var words = textWrapper.textContent.trim().split(' ');
+
+        // Clear the existing content
+        textWrapper.innerHTML = '';
+
+        // Wrap each word and its letters in spans
+        words.forEach(function(word) {
+            var wordSpan = document.createElement('span');
+            wordSpan.classList.add('word');
+            wordSpan.innerHTML = word.replace(/\S/g, "<span class='letter'>$&</span>");
+            textWrapper.appendChild(wordSpan);
+            textWrapper.appendChild(document.createTextNode(' ')); // Add space between words
+        });
+
+        var animation = anime.timeline({ loop: true })
+            .add({
+                targets: '.ml13 .letter',
+                translateY: [20, 0],
+                translateZ: 0,
+                opacity: [0, 1],
+                filter: ['blur(5px)', 'blur(0px)'],
+                easing: "easeOutExpo",
+                duration: 1200,
+                delay: (el, i) => 300 + 20 * i,
+            })
+            .add({
+                targets: '.ml13 .letter',
+                translateY: [0, -20],
+                opacity: [1, 0],
+                filter: ['blur(0px)', 'blur(5px)'],
+                easing: "easeInExpo",
+                duration: 1000,
+                delay: (el, i) => 15 * i,
+                complete: function() {
+                    hidePreloader();
+                }
+            }, '-=700');
+
+
+        let themeStatus = JSON.parse(localStorage.getItem('REDEFINE-THEME-STATUS'))?.isDark;
+
+        // If the theme status is not found in local storage, check the preferred color scheme
+        if (themeStatus === undefined || themeStatus === null) {
+            if (window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches) {
+                themeStatus = 'dark';
+            } else {
+                themeStatus = 'light';
+            }
+        }
+
+        // Now you can use the themeStatus variable in your code
+        if (themeStatus) {
+            document.documentElement.style.setProperty('--preloader-background-color', '#202124');
+            document.documentElement.style.setProperty('--preloader-text-color', '#fff');
+        } else {
+            document.documentElement.style.setProperty('--preloader-background-color', '#fff');
+            document.documentElement.style.setProperty('--preloader-text-color', '#000');
+        }
+
+        window.addEventListener('load', function () {
+            setTimeout(hidePreloader, 5000); // Call hidePreloader after 5000 milliseconds if not already called by animation
+        });
+
+        function hidePreloader() {
+            var preloader = document.querySelector('.preloader');
+            preloader.style.opacity = '0';
+            setTimeout(function () {
+                preloader.style.display = 'none';
+            }, 200);
+        }
+    </script>
+</div>
+
+<main class="page-container" id="swup">
+
+	
+
+	<div class="main-content-container flex flex-col justify-between min-h-dvh">
+		<div class="main-content-header">
+			<header class="navbar-container px-6 md:px-12">
+    <div class="navbar-content transition-navbar ">
+        <div class="left">
+            
+                <a class="logo-image h-8 w-8 sm:w-10 sm:h-10 mr-3" href="/">
+                    <img src="/images/image.ico" class="w-full h-full rounded-xs">
+                </a>
+            
+            <a class="logo-title" href="/">
+                
+                ZRY的博客
+                
+            </a>
+        </div>
+
+        <div class="right">
+            <!-- PC -->
+            <div class="desktop">
+                <ul class="navbar-list">
+                    
+                        
+                            
+
+                            <li class="navbar-item">
+                                <!-- Menu -->
+                                <a class=""
+                                   href="/"
+                                        >
+                                    <i class="fa-regular fa-house fa-fw"></i>
+                                    首页
+                                    
+                                </a>
+
+                                <!-- Submenu -->
+                                
+                            </li>
+                    
+                    
+                        <li class="navbar-item search search-popup-trigger">
+                            <i class="fa-solid fa-magnifying-glass"></i>
+                        </li>
+                    
+                </ul>
+            </div>
+            <!-- Mobile -->
+            <div class="mobile">
+                
+                    <div class="icon-item search search-popup-trigger"><i class="fa-solid fa-magnifying-glass"></i>
+                    </div>
+                
+                <div class="icon-item navbar-bar">
+                    <div class="navbar-bar-middle"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Mobile sheet -->
+    <div class="navbar-drawer h-dvh w-full absolute top-0 left-0 bg-background-color flex flex-col justify-between">
+        <ul class="drawer-navbar-list flex flex-col px-4 justify-center items-start">
+            
+                
+                    
+
+                    <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
+                        
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                           href="/"
+                        >
+                            <span>
+                                首页
+                            </span>
+                            
+                                <i class="fa-regular fa-house fa-sm fa-fw"></i>
+                            
+                        </a>
+                        
+
+                        
+                    </li>
+            
+
+            
+            
+        </ul>
+
+        <div class="statistics flex justify-around my-2.5">
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/tags">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">0</div>
+        <div class="label text-third-text-color text-sm">标签</div>
+    </a>
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/categories">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">0</div>
+        <div class="label text-third-text-color text-sm">分类</div>
+    </a>
+    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/archives">
+        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">1</div>
+        <div class="label text-third-text-color text-sm">文章</div>
+    </a>
+</div>
+    </div>
+
+    <div class="window-mask"></div>
+
+</header>
+
+
+		</div>
+
+		<div class="main-content-body transition-fade-up">
+			
+
+			<div class="main-content">
+				<div class="post-page-container flex relative justify-between box-border w-full h-full">
+	<div class="article-content-container">
+
+		<div class="article-title relative w-full">
+			
+			<div class="w-full flex items-center pt-6 justify-start">
+				<h1 class="article-title-regular text-second-text-color tracking-tight text-4xl md:text-6xl font-semibold px-2 sm:px-6 md:px-8 py-3">爱国爱党爱人民</h1>
+			</div>
+			
+		</div>
+
+		
+		<div class="article-header flex flex-row gap-2 items-center px-2 sm:px-6 md:px-8">
+			<div class="avatar w-[46px] h-[46px] shrink-0 rounded-medium border border-border-color p-px">
+				<img src="/images/image.ico">
+			</div>
+			<div class="info flex flex-col justify-between">
+				<div class="author flex items-center">
+					<span class="name text-default-text-color text-lg font-semibold">ZRY-Kevin</span>
+					
+					<span class="author-label ml-1.5 text-xs px-2 py-0.5 rounded-small text-third-text-color border border-shadow-color-1">Lv1</span>
+					
+				</div>
+				<div class="meta-info">
+					<div class="article-meta-info">
+    <span class="article-date article-meta-item">
+        <i class="fa-regular fa-pen-fancy"></i>&nbsp;
+        <span class="desktop">2026-05-02 22:39:22</span>
+        <span class="mobile">2026-05-02 22:39:22</span>
+        <span class="hover-info">创建</span>
+    </span>
+    
+        <span class="article-date article-meta-item">
+            <i class="fa-regular fa-wrench"></i>&nbsp;
+            <span class="desktop">2026-05-02 22:41:33</span>
+            <span class="mobile">2026-05-02 22:41:33</span>
+            <span class="hover-info">更新</span>
+        </span>
+    
+
+    
+    
+
+    
+    
+        <span class="article-wordcount article-meta-item">
+            <i class="fa-regular fa-typewriter"></i>&nbsp;<span>9.3k 字</span>
+        </span>
+    
+    
+        <span class="article-min2read article-meta-item">
+            <i class="fa-regular fa-clock"></i>&nbsp;<span>35 分钟</span>
+        </span>
+    
+    
+        <span class="article-pv article-meta-item">
+            <i class="fa-regular fa-eye"></i>&nbsp;<span id="busuanzi_value_page_pv"></span>
+        </span>
+    
+</div>
+
+				</div>
+			</div>
+		</div>
+		
+
+		
+
+
+		<div class="article-content markdown-body px-2 sm:px-6 md:px-8 pb-8">
+			<h1 id="爱国爱党爱人民——一群爱国人士的宣讲"><a href="#爱国爱党爱人民——一群爱国人士的宣讲" class="headerlink" title="爱国爱党爱人民——一群爱国人士的宣讲"></a>爱国爱党爱人民——一群爱国人士的宣讲</h1><h3 id="温馨提示"><a href="#温馨提示" class="headerlink" title="温馨提示"></a>温馨提示</h3><ul>
+<li>本文转载自<a href="note.ms/yxb">note.ms&#x2F;yxb</a></li>
+<li>本文仅代表本人政治立场。</li>
+</ul>
+<h3 id="正文"><a href="#正文" class="headerlink" title="正文"></a>正文</h3><p>同志，请不要删除它！！</p>
+<p>共产者联合计划： 我们向全部来自note.ms的无产者们申请，加入我们！ 我们有着共同的目标与决心！！坚信着共产主义！！ 请维护这些网址的和平！！打倒诈骗！ 请守卫：</p>
+<p>note.ms&#x2F;10086<br>note.ms&#x2F;china<br>note.ms&#x2F;China<br>note.ms&#x2F;CHINA<br>note.ms&#x2F;Chinese<br>note.ms&#x2F;chinese<br>note.ms&#x2F;maozedong<br>note.ms&#x2F;zhouenlai<br>note.ms&#x2F;MZD<br>note.ms&#x2F;ZEL<br>note.ms&#x2F;zhongguogongchandang<br>note.ms&#x2F;CN<br>note.ms&#x2F;cn<br>note.ms&#x2F;aiguo<br>note.ms&#x2F;gongchanzhuyiwansui<br>note.ms&#x2F;seqing<br>如果你有意加入我们，请务必复制以下内容，让共产主义在note.ms发扬光大！！<br>⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿<br>⣿⣿⣿⣿⣿⣿⣿⣿⢿⣿⣿⣿⣿⣿⣿⡏⠁⠘⣻⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿<br>⣿⣿⣿⣿⣿⣿⣿⡏⠀⢿⣿⣿⣿⣿⣿⣶⣦⣼⣿⠻⡿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿<br>⣿⣿⣿⣟⡉⠉⠉⠁⠀⠈⠉⠉⢉⣿⣿⣿⣿⣿⣏⡀⢀⣻⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿<br>⣿⣿⣿⣿⣿⣦⠀⠀ ⠀⠀⢠⣾⣿⣿⣿⣿⣿⣿⣿⣷⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿<br>⣿⣿⣿⣿⣿⡏⠀⣠⣤⡀⠈⣿⣿⣿⣿⣿⣿⣿⡟⠋⠙⢻⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿<br>⣿⣿⣿⣿⣿⣷⣾⣿⣿⣿⣷⣾⣿⣿⣿⣿⣿⣿⣿⣠⣄⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿<br>⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡇⠁⢘⣻⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿<br>⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣶⣧⣼⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿<br>⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿<br>⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿<br>⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿<br>⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿<br>⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿<br>⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿<br>⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿<br>⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿</p>
+<hr>
+<hr>
+<p>____________________________<em><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong>000000</strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></em><br>_________________________________<strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong>0000000</strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong><br>________________________________________<strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong>00000000</strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong><br>_____________________________________________<em><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong>000000000</strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></em><br>___________________________________________________<strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong>000000000</strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong><br>_______________________________________________________<strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong>000000000</strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong><br>__________________________________________________________<strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong>0000000000</strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong><br>_______________________________________________________________<em><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong>00000000000</strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></em><br>______________________________<em><em><strong><em><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><em><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong>0000000000</strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></em>_<br><em><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong>000000000000000000000000000000____________________________________00000000000</strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong><br><strong><em><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong>000000000000000000000000000000000_____________________________________00000000000</strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong><br><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong>000000000000000000000000000000000000000___________________________________00000000000</strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong>_<br><em><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong>00000000000000000000000000000000000000000___________________________________000000000000</strong></strong></strong></strong></strong></strong></strong></strong></strong></strong>_<br><strong><em><strong><strong><strong><strong><strong><strong><strong><strong><strong>000000000000000000000000000000000000000000______________________________________00000000000</strong></strong></strong></strong></strong></strong></strong></strong></strong></em>_<br><em><strong><strong><strong><strong><strong><strong><strong><strong><strong>0000000000000000000000000000000000000000000________________________________________00000000000</strong></strong></strong></strong></strong></strong></strong></strong></strong></em><br><em><strong><strong><strong><strong><strong><strong><strong><strong>0000000000000000000000000000000000000000000___________________________________________000000000000</strong></strong></strong></strong></strong></strong></strong></strong></em><br>_<strong><strong><strong><strong><strong><strong><strong>0000000000000000000000000000000000000000000______________________________________________000000000000</strong></strong></strong></strong></strong></strong></strong></strong><br>_<strong><strong><strong><strong><strong><strong>000000000000000000000000000000000000000000_________________________________________________0000000000000</strong></strong></strong></strong></strong></strong></strong></em><br>_<strong><strong><strong><strong><strong>000000000000000000000000000000000000000000_____________________________________________________000000000000</strong></strong></strong></strong></strong></strong></em>_<br>_<strong><strong><strong><strong>000000000000000000000000000000000000000000_______________________________________________________0000000000000</strong></strong></strong></strong></strong></strong></em><br>_<strong><strong><strong>0000000000000000000000000000000000000000000_________________________________________________________000000000000</strong></strong></strong></strong></strong></strong>_<br>_<strong><strong>000000000000000000000000000000000000000000000_________________________________________________________0000000000000</strong></strong></strong></strong></strong></strong><br><strong><strong>0000000000000000000000000000000000000000000000000_______________________________________________________0000000000000</strong></strong></strong></strong></strong>_<br>_<strong>000000000000000000000000000000000000000000000000000______________________________________________________00000000000000</strong></strong></strong></strong></strong><br><strong><strong>00000000000000000000000000000000000000000000000000000____________________________________________________00000000000000</strong></strong></strong></strong></em><br><strong><strong><strong>00000000000000000000000000000000000000000000000000000__________________________________________________00000000000000</strong></strong></strong></strong></em><br><strong><strong><strong><strong>00000000000000000000000000000000000000000000000000000________________________________________________00000000000000</strong></strong></strong></strong></em><br>__<strong><strong><strong><strong>0000000000000000000000000____000000000000000000000000______________________________________________000000000000000</strong></strong></strong></strong><br>____<strong><strong><strong><strong>000000000000000000000________000000000000000000000000____________________________________________000000000000000</strong></strong></strong></strong><br>______<strong><strong><strong><strong>0000000000000000_____________000000000000000000000000__________________________________________000000000000000</strong></strong></strong></strong><br>________<strong><strong><strong><strong>000000000000_________________000000000000000000000000________________________________________000000000000000</strong></strong></strong></strong><br>_________<em><strong><strong><strong><strong>00000000_____________________000000000000000000000000______________________________________00000000000000</strong></strong></strong></strong></em><br>___________<em><strong><strong><strong><strong>0000_________________________000000000000000000000000____________________________________00000000000000</strong></strong></strong></strong></em><br>__________________________________________<em><strong><strong><strong><strong>000000000000000000000000_________________________________000000000000000</strong></strong></strong></strong></em><br>____________________________________________<em><strong><strong><strong><strong>000000000000000000000000_______________________________000000000000000</strong></strong></strong></strong></em><br>______________________________________________<em><strong><strong><strong><strong>0000000000000000000000000____________________________000000000000000</strong></strong></strong></strong></em><br>_______________________________________________<strong><strong><strong><strong><strong>000000000000000000000000__________________________000000000000000</strong></strong></strong></strong></strong><br>________________________________________________<em><strong><strong><strong><strong><strong>0000000000000000000000000_______________________00000000000000</strong></strong></strong></strong></strong></em><br>__________________________________________________<em><strong><strong><strong><strong><strong>0000000000000000000000000____________________000000000000000</strong></strong></strong></strong></strong></em><br>_____________________________________________________<em><strong><strong><strong><strong><strong>000000000000000000000000_________________0000000000000000</strong></strong></strong></strong></strong></em><br>________________________________________<strong><strong><strong><strong><strong><strong>000000_______0000000000000000000000000______________0000000000000000</strong></strong></strong></strong></strong></strong><br>_____________________________________<em><strong><strong><strong><strong><strong><strong>00000000_________0000000000000000000000000___________0000000000000000</strong></strong></strong></strong></strong></strong></em><br>___________________________________<em><strong><strong><strong><strong><strong><strong>0000000000___________0000000000000000000000000_______000000000000000000</strong></strong></strong></strong></strong></strong></em><br>_________________________________<strong><strong><strong><strong><strong><strong><strong>00000000000_____________0000000000000000000000000___0000000000000000000</strong></strong></strong></strong></strong></strong></strong><br>__________________________<em><strong><strong><strong><strong><strong><strong><strong>000000000000000000_______________0000000000000000000000000000000000000000000</strong></strong></strong></strong></strong></strong></strong></em><br>______________________<strong><strong><strong><strong><strong><strong><strong><strong>00000000000000000000000_______________0000000000000000000000000000000000000000</strong></strong></strong></strong></strong></strong></strong></strong><br>___________________<strong><strong><strong><strong><strong><strong><strong><strong><strong>000000000000000000000000000______________000000000000000000000000000000000000</strong></strong></strong></strong></strong></strong></strong></strong></strong><br>_________________<em><strong><strong><strong><strong><strong><strong><strong><strong><strong>00000000000000000000000000000000___________0000000000000000000000000000000000</strong></strong></strong></strong></strong></strong></strong></strong></strong></em><br>______________<em><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong>00000000000000000_____000000000000000000000000000000000000000000000000000000</strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></em><br>_____________<strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong>00000000000000000_______000000000000000000000000000000000000000000000000000</strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong><br>____________<em><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong>000000000000000000__________00000000000000000000000000000000000000000000000000</strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></em><br>___________<em><strong><strong><strong><strong><strong><strong><strong><strong><strong>0000000000000000000______________00000000000000000000000000000000000000000000000000</strong></strong></strong></strong></strong></strong></strong></strong></strong></em><br>__________<em><strong><strong><strong><strong><strong><strong><strong><strong>0000000000000000000____________________0000000000000000000000000000000000000000000000000</strong></strong></strong></strong></strong></strong></strong></strong></em><br>_________<em><strong><strong><strong><strong><strong><strong><strong>000000000000000000____________________________00000000000000000000000000000000000000000000000</strong></strong></strong></strong></strong></strong></strong></em><br>_________<em><strong><strong><strong><strong><strong><strong>000000000000000000____________________________________0000000000000000000000000000000000000000000</strong></strong></strong></strong></strong></strong></em><br>_________<em><strong><strong><strong><strong><strong>0000000000000000000_________________________________________________________0000000000000000000000000</strong></strong></strong></strong></strong></em><br>_________<em><strong><strong><strong><strong>00000000000000000000____________________________________________________________0000000000000000000000000</strong></strong></strong></strong></em><br>__________<em><strong><strong><strong>0000000000000000000________________________________________________________________0000000000000000000000000</strong></strong></strong></em><br>_________<em><strong><strong><strong>0000000000000000000____________________________________________________________________0000000000000000000000</strong></strong></strong></em><br>_________<em><strong><strong><strong>00000000000000000________________________________________________________________________00000000000000000000</strong></strong></strong></em><br>________<strong><strong><strong><strong>000000000000000____________________________________________________________________________00000000000000000</strong></strong></strong></strong><br>______<strong><strong><strong><strong><strong>0000000000000________________________________________________________________________________0000000000000</strong></strong></strong></strong></strong><br>______<strong><strong><strong><strong><strong><strong>000000_______________________________________________________________________________________000000000</strong></strong></strong></strong></strong></strong><br>__________________________________________________________________________________________________<strong><strong><strong><strong><strong><strong><strong><strong>00</strong></strong></strong></strong></strong></strong></strong></strong></p>
+<hr>
+<hr>
+<p>同志们，朋友们：</p>
+<p>今天，在中国共产党历史上，在中华民族历史上，都是一个十分重大而庄严的日子。我们在这里隆重集会，同全党全国各族人民一道，庆祝中国共产党成立一百周年，回顾中国共产党百年奋斗的光辉历程，展望中华民族伟大复兴的光明前</p>
+<p>首先，我代表党中央，向全体中国共产党员致以节日的热烈祝贺！</p>
+<p>在这里，我代表党和人民庄严宣告，经过全党全国各族人民持续奋斗，我们实现了第一个百年奋斗目标，在中华大地上全面建成了小康社会，历史性地解决了绝对贫困问题，正在意气风发向着全面建成社会主义现代化强国的第二个百年奋斗目标迈进。这是中华民族的伟大光荣！这是中国人民的伟大光荣！这是中国共产党的伟大光荣！</p>
+<p>同志们、朋友们！</p>
+<p>中华民族是世界上伟大的民族，有着5000多年源远流长的文明历史，为人类文明进步作出了不可磨灭的贡献。1840年鸦片战争以后，中国逐步成为半殖民地半封建社会，国家蒙辱、人民蒙难、文明蒙尘，中华民族遭受了前所未有的劫难。从那时起，实现中华民族伟大复兴，就成为中国人民和中华民族最伟大的梦想。</p>
+<p>为了拯救民族危亡，中国人民奋起反抗，仁人志士奔走呐喊，太平天国运动、戊戌变法、义和团运动、辛亥革命接连而起，各种救国方案轮番出台，但都以失败而告终。中国迫切需要新的思想引领救亡运动，迫切需要新的组织凝聚革命力量。</p>
+<p>十月革命一声炮响，给中国送来了马克思列宁主义。在中国人民和中华民族的伟大觉醒中，在马克思列宁主义同中国工人运动的紧密结合中，中国共产党应运而生。中国产生了共产党，这是开天辟地的大事变，深刻改变了近代以后中华民族发展的方向和进程，深刻改变了中国人民和中华民族的前途和命运，深刻改变了世界发展的趋势和格局。</p>
+<p>中国共产党一经诞生，就把为中国人民谋幸福、为中华民族谋复兴确立为自己的初心使命。一百年来，中国共产党团结带领中国人民进行的一切奋斗、一切牺牲、一切创造，归结起来就是一个主题：实现中华民族伟大复兴。</p>
+<p>——为了实现中华民族伟大复兴，中国共产党团结带领中国人民，浴血奋战、百折不挠，创造了新民主主义革命的伟大成就。我们经过北伐战争、土地革命战争、抗日战争、解放战争，以武装的革命反对武装的反革命，推翻帝国主义、封建主义、官僚资本主义三座大山，建立了人民当家作主的中华人民共和国，实现了民族独立、人民解放。新民主主义革命的胜利，彻底结束了旧中国半殖民地半封建社会的历史，彻底结束了旧中国一盘散沙的局面，彻底废除了列强强加给中国的不平等条约和帝国主义在中国的一切特权，为实现中华民族伟大复兴创造了根本社会条件。中国共产党和中国人民以英勇顽强的奋斗向世界庄严宣告，中国人民站起来了，中华民族任人宰割、饱受欺凌的时代一去不复返了！</p>
+<p>——为了实现中华民族伟大复兴，中国共产党团结带领中国人民，自力更生、发愤图强，创造了社会主义革命和建设的伟大成就。我们进行社会主义革命，消灭在中国延续几千年的封建剥削压迫制度，确立社会主义基本制度，推进社会主义建设，战胜帝国主义、霸权主义的颠覆破坏和武装挑衅，实现了中华民族有史以来最为广泛而深刻的社会变革，实现了一穷二白、人口众多的东方大国大步迈进社会主义社会的伟大飞跃，为实现中华民族伟大复兴奠定了根本政治前提和制度基础。中国共产党和中国人民以英勇顽强的奋斗向世界庄严宣告，中国人民不但善于破坏一个旧世界、也善于建设一个新世界，只有社会主义才能救中国，只有社会主义才能发展中国！</p>
+<p>——为了实现中华民族伟大复兴，中国共产党团结带领中国人民，解放思想、锐意进取，创造了改革开放和社会主义现代化建设的伟大成就。我们实现新中国成立以来党的历史上具有深远意义的伟大转折，确立党在社会主义初级阶段的基本路线，坚定不移推进改革开放，战胜来自各方面的风险挑战，开创、坚持、捍卫、发展中国特色社会主义，实现了从高度集中的计划经济体制到充满活力的社会主义市场经济体制、从封闭半封闭到全方位开放的历史性转变，实现了从生产力相对落后的状况到经济总量跃居世界第二的历史性突破，实现了人民生活从温饱不足到总体小康、奔向全面小康的历史性跨越，为实现中华民族伟大复兴提供了充满新的活力的体制保证和快速发展的物质条件。中国共产党和中国人民以英勇顽强的奋斗向世界庄严宣告，改革开放是决定当代中国前途命运的关键一招，中国大踏步赶上了时代！</p>
+<p>——为了实现中华民族伟大复兴，中国共产党团结带领中国人民，自信自强、守正创新，统揽伟大斗争、伟大工程、伟大事业、伟大梦想，创造了新时代中国特色社会主义的伟大成就。党的十八大以来，中国特色社会主义进入新时代，我们坚持和加强党的全面领导，统筹推进“五位一体”总体布局、协调推进“四个全面”战略布局，坚持和完善中国特色社会主义制度、推进国家治理体系和治理能力现代化，坚持依规治党、形成比较完善的党内法规体系，战胜一系列重大风险挑战，实现第一个百年奋斗目标，明确实现第二个百年奋斗目标的战略安排，党和国家事业取得历史性成就、发生历史性变革，为实现中华民族伟大复兴提供了更为完善的制度保证、更为坚实的物质基础、更为主动的精神力量。中国共产党和中国人民以英勇顽强的奋斗向世界庄严宣告，中华民族迎来了从站起来、富起来到强起来的伟大飞跃，实现中华民族伟大复兴进入了不可逆转的历史进程！</p>
+<p>2021年7月1日，庆祝中国共产党成立100周年大会在北京天安门广场隆重举行。习近平、李克强、栗战书、汪洋、王沪宁、赵乐际、韩正、王岐山、胡锦涛等出席大会。　新华社记者 殷博古&#x2F;摄</p>
+<p>一百年来，中国共产党团结带领中国人民，以“为有牺牲多壮志，敢教日月换新天”的大无畏气概，书写了中华民族几千年历史上最恢宏的史诗。这一百年来开辟的伟大道路、创造的伟大事业、取得的伟大成就，必将载入中华民族发展史册、人类文明发展史册！</p>
+<p>同志们、朋友们！</p>
+<p>一百年前，中国共产党的先驱们创建了中国共产党，形成了坚持真理、坚守理想，践行初心、担当使命，不怕牺牲、英勇斗争，对党忠诚、不负人民的伟大建党精神，这是中国共产党的精神之源。</p>
+<p>一百年来，中国共产党弘扬伟大建党精神，在长期奋斗中构建起中国共产党人的精神谱系，锤炼出鲜明的政治品格。历史川流不息，精神代代相传。我们要继续弘扬光荣传统、赓续红色血脉，永远把伟大建党精神继承下去、发扬光大！</p>
+<p>2021年6月29日，庆祝中国共产党成立100周年“七一勋章”颁授仪式在北京人民大会堂金色大厅隆重举行。中共中央总书记、国家主席、中央军委主席习近平同“七一勋章”获得者一同步入会场。　新华社记者 李涛&#x2F;摄</p>
+<p>同志们、朋友们！</p>
+<p>一百年来，我们取得的一切成就，是中国共产党人、中国人民、中华民族团结奋斗的结果。以毛泽东同志、邓小平同志、江泽民同志、胡锦涛同志为主要代表的中国共产党人，为中华民族伟大复兴建立了彪炳史册的伟大功勋！我们向他们表示崇高的敬意！</p>
+<p>此时此刻，我们深切怀念为中国革命、建设、改革，为中国共产党建立、巩固、发展作出重大贡献的毛泽东、周恩来、刘少奇、朱德、邓小平、陈云同志等老一辈革命家，深切怀念为建立、捍卫、建设新中国英勇牺牲的革命先烈，深切怀念为改革开放和社会主义现代化建设英勇献身的革命烈士，深切怀念近代以来为民族独立和人民解放顽强奋斗的所有仁人志士。他们为祖国和民族建立的丰功伟绩永载史册！他们的崇高精神永远铭记在人民心中！</p>
+<p>人民是历史的创造者，是真正的英雄。我代表党中央，向全国广大工人、农民、知识分子，向各民主党派和无党派人士、各人民团体、各界爱国人士，向人民解放军指战员、武警部队官兵、公安干警和消防救援队伍指战员，向全体社会主义劳动者，向统一战线广大成员，致以崇高的敬意！向香港特别行政区同胞、澳门特别行政区同胞和台湾同胞以及广大侨胞，致以诚挚的问候！向一切同中国人民友好相处，关心和支持中国革命、建设、改革事业的各国人民和朋友，致以衷心的谢意！</p>
+<p>同志们、朋友们！</p>
+<p>初心易得，始终难守。以史为鉴，可以知兴替。我们要用历史映照现实、远观未来，从中国共产党的百年奋斗中看清楚过去我们为什么能够成功、弄明白未来我们怎样才能继续成功，从而在新的征程上更加坚定、更加自觉地牢记初心使命、开创美好未来。</p>
+<p>——以史为鉴、开创未来，必须坚持中国共产党坚强领导。办好中国的事情，关键在党。中华民族近代以来180多年的历史、中国共产党成立以来100年的历史、中华人民共和国成立以来70多年的历史都充分证明，没有中国共产党，就没有新中国，就没有中华民族伟大复兴。历史和人民选择了中国共产党。中国共产党领导是中国特色社会主义最本质的特征，是中国特色社会主义制度的最大优势，是党和国家的根本所在、命脉所在，是全国各族人民的利益所系、命运所系。</p>
+<p>新的征程上，我们必须坚持党的全面领导，不断完善党的领导，增强“四个意识”、坚定“四个自信”、做到“两个维护”，牢记“国之大者”，不断提高党科学执政、民主执政、依法执政水平，充分发挥党总揽全局、协调各方的领导核心作用！</p>
+<p>——以史为鉴、开创未来，必须团结带领中国人民不断为美好生活而奋斗。江山就是人民、人民就是江山，打江山、守江山，守的是人民的心。中国共产党根基在人民、血脉在人民、力量在人民。中国共产党始终代表最广大人民根本利益，与人民休戚与共、生死相依，没有任何自己特殊的利益，从来不代表任何利益集团、任何权势团体、任何特权阶层的利益。任何想把中国共产党同中国人民分割开来、对立起来的企图，都是绝不会得逞的！9500多万中国共产党人不答应！14亿多中国人民也不答应！</p>
+<p>新的征程上，我们必须紧紧依靠人民创造历史，坚持全心全意为人民服务的根本宗旨，站稳人民立场，贯彻党的群众路线，尊重人民首创精神，践行以人民为中心的发展思想，发展全过程人民民主，维护社会公平正义，着力解决发展不平衡不充分问题和人民群众急难愁盼问题，推动人的全面发展、全体人民共同富裕取得更为明显的实质性进展！</p>
+<p>——以史为鉴、开创未来，必须继续推进马克思主义中国化。马克思主义是我们立党立国的根本指导思想，是我们党的灵魂和旗帜。中国共产党坚持马克思主义基本原理，坚持实事求是，从中国实际出发，洞察时代大势，把握历史主动，进行艰辛探索，不断推进马克思主义中国化时代化，指导中国人民不断推进伟大社会革命。中国共产党为什么能，中国特色社会主义为什么好，归根到底是因为马克思主义行！</p>
+<p>新的征程上，我们必须坚持马克思列宁主义、毛泽东思想、邓小平理论、“三个代表”重要思想、科学发展观，全面贯彻新时代中国特色社会主义思想，坚持把马克思主义基本原理同中国具体实际相结合、同中华优秀传统文化相结合，用马克思主义观察时代、把握时代、引领时代，继续发展当代中国马克思主义、21世纪马克思主义！</p>
+<p>——以史为鉴、开创未来，必须坚持和发展中国特色社会主义。走自己的路，是党的全部理论和实践立足点，更是党百年奋斗得出的历史结论。中国特色社会主义是党和人民历经千辛万苦、付出巨大代价取得的根本成就，是实现中华民族伟大复兴的正确道路。我们坚持和发展中国特色社会主义，推动物质文明、政治文明、精神文明、社会文明、生态文明协调发展，创造了中国式现代化新道路，创造了人类文明新形态。</p>
+<p>新的征程上，我们必须坚持党的基本理论、基本路线、基本方略，统筹推进“五位一体”总体布局、协调推进“四个全面”战略布局，全面深化改革开放，立足新发展阶段，完整、准确、全面贯彻新发展理念，构建新发展格局，推动高质量发展，推进科技自立自强，保证人民当家作主，坚持依法治国，坚持社会主义核心价值体系，坚持在发展中保障和改善民生，坚持人与自然和谐共生，协同推进人民富裕、国家强盛、中国美丽。</p>
+<p>中华民族拥有在5000多年历史演进中形成的灿烂文明，中国共产党拥有百年奋斗实践和70多年执政兴国经验，我们积极学习借鉴人类文明的一切有益成果，欢迎一切有益的建议和善意的批评，但我们绝不接受“教师爷”般颐指气使的说教！中国共产党和中国人民将在自己选择的道路上昂首阔步走下去，把中国发展进步的命运牢牢掌握在自己手中！</p>
+<p>——以史为鉴、开创未来，必须加快国防和军队现代化。强国必须强军，军强才能国安。坚持党指挥枪、建设自己的人民军队，是党在血与火的斗争中得出的颠扑不破的真理。人民军队为党和人民建立了不朽功勋，是保卫红色江山、维护民族尊严的坚强柱石，也是维护地区和世界和平的强大力量。</p>
+<p>2021年6月28日晚，庆祝中国共产党成立100周年文艺演出《伟大征程》在国家体育场盛大举行。习近平、李克强、栗战书、汪洋、王沪宁、赵乐际、韩正、王岐山等党和国家领导人，同约2万名观众一起观看演出。　新华社记者 鞠鹏&#x2F;摄</p>
+<p>新的征程上，我们必须全面贯彻新时代党的强军思想，贯彻新时代军事战略方针，坚持党对人民军队的绝对领导，坚持走中国特色强军之路，全面推进政治建军、改革强军、科技强军、人才强军、依法治军，把人民军队建设成为世界一流军队，以更强大的能力、更可靠的手段捍卫国家主权、安全、发展利益！</p>
+<p>——以史为鉴、开创未来，必须不断推动构建人类命运共同体。和平、和睦、和谐是中华民族5000多年来一直追求和传承的理念，中华民族的血液中没有侵略他人、称王称霸的基因。中国共产党关注人类前途命运，同世界上一切进步力量携手前进，中国始终是世界和平的建设者、全球发展的贡献者、国际秩序的维护者！</p>
+<p>2021年6月18日，党和国家领导人习近平、李克强、栗战书、汪洋、王沪宁、赵乐际、韩正、王岐山等在中国共产党历史展览馆参观“‘不忘初心、牢记使命’中国共产党历史展览”。　新华社记者 鞠鹏&#x2F;摄</p>
+<p>新的征程上，我们必须高举和平、发展、合作、共赢旗帜，奉行独立自主的和平外交政策，坚持走和平发展道路，推动建设新型国际关系，推动构建人类命运共同体，推动共建“一带一路”高质量发展，以中国的新发展为世界提供新机遇。中国共产党将继续同一切爱好和平的国家和人民一道，弘扬和平、发展、公平、正义、民主、自由的全人类共同价值，坚持合作、不搞对抗，坚持开放、不搞封闭，坚持互利共赢、不搞零和博弈，反对霸权主义和强权政治，推动历史车轮向着光明的目标前进！</p>
+<p>中国人民是崇尚正义、不畏强暴的人民，中华民族是具有强烈民族自豪感和自信心的民族。中国人民从来没有欺负、压迫、奴役过其他国家人民，过去没有，现在没有，将来也不会有。同时，中国人民也绝不允许任何外来势力欺负、压迫、奴役我们，谁妄想这样干，必将在14亿多中国人民用血肉筑成的钢铁长城面前碰得头破血流！</p>
+<p>——以史为鉴、开创未来，必须进行具有许多新的历史特点的伟大斗争。敢于斗争、敢于胜利，是中国共产党不可战胜的强大精神力量。实现伟大梦想就要顽强拼搏、不懈奋斗。今天，我们比历史上任何时期都更接近、更有信心和能力实现中华民族伟大复兴的目标，同时必须准备付出更为艰巨、更为艰苦的努力。</p>
+<p>新的征程上，我们必须增强忧患意识、始终居安思危，贯彻总体国家安全观，统筹发展和安全，统筹中华民族伟大复兴战略全局和世界百年未有之大变局，深刻认识我国社会主要矛盾变化带来的新特征新要求，深刻认识错综复杂的国际环境带来的新矛盾新挑战，敢于斗争，善于斗争，逢山开道、遇水架桥，勇于战胜一切风险挑战！</p>
+<p>——以史为鉴、开创未来，必须加强中华儿女大团结。在百年奋斗历程中，中国共产党始终把统一战线摆在重要位置，不断巩固和发展最广泛的统一战线，团结一切可以团结的力量、调动一切可以调动的积极因素，最大限度凝聚起共同奋斗的力量。爱国统一战线是中国共产党团结海内外全体中华儿女实现中华民族伟大复兴的重要法宝。</p>
+<p>新的征程上，我们必须坚持大团结大联合，坚持一致性和多样性统一，加强思想政治引领，广泛凝聚共识，广聚天下英才，努力寻求最大公约数、画出最大同心圆，形成海内外全体中华儿女心往一处想、劲往一处使的生动局面，汇聚起实现民族复兴的磅礴力量！</p>
+<p>——以史为鉴、开创未来，必须不断推进党的建设新的伟大工程。勇于自我革命是中国共产党区别于其他政党的显著标志。我们党历经千锤百炼而朝气蓬勃，一个很重要的原因就是我们始终坚持党要管党、全面从严治党，不断应对好自身在各个历史时期面临的风险考验，确保我们党在世界形势深刻变化的历史进程中始终走在时代前列，在应对国内外各种风险挑战的历史进程中始终成为全国人民的主心骨！</p>
+<p>新的征程上，我们要牢记打铁必须自身硬的道理，增强全面从严治党永远在路上的政治自觉，以党的政治建设为统领，继续推进新时代党的建设新的伟大工程，不断严密党的组织体系，着力建设德才兼备的高素质干部队伍，坚定不移推进党风廉政建设和反腐败斗争，坚决清除一切损害党的先进性和纯洁性的因素，清除一切侵蚀党的健康肌体的病毒，确保党不变质、不变色、不变味，确保党在新时代坚持和发展中国特色社会主义的历史进程中始终成为坚强领导核心！</p>
+<p>同志们、朋友们！</p>
+<p>我们要全面准确贯彻“一国两制”、“港人治港”、“澳人治澳”、高度自治的方针，落实中央对香港、澳门特别行政区全面管治权，落实特别行政区维护国家安全的法律制度和执行机制，维护国家主权、安全、发展利益，维护特别行政区社会大局稳定，保持香港、澳门长期繁荣稳定。</p>
+<p>解决台湾问题、实现祖国完全统一，是中国共产党矢志不渝的历史任务，是全体中华儿女的共同愿望。要坚持一个中国原则和“九二共识”，推进祖国和平统一进程。包括两岸同胞在内的所有中华儿女，要和衷共济、团结向前，坚决粉碎任何“台独”图谋，共创民族复兴美好未来。任何人都不要低估中国人民捍卫国家主权和领土完整的坚强决心、坚定意志、强大能力！</p>
+<p>同志们、朋友们！</p>
+<p>未来属于青年，希望寄予青年。一百年前，一群新青年高举马克思主义思想火炬，在风雨如晦的中国苦苦探寻民族复兴的前途。一百年来，在中国共产党的旗帜下，一代代中国青年把青春奋斗融入党和人民事业，成为实现中华民族伟大复兴的先锋力量。新时代的中国青年要以实现中华民族伟大复兴为己任，增强做中国人的志气、骨气、底气，不负时代，不负韶华，不负党和人民的殷切期望！</p>
+<p>同志们、朋友们！</p>
+<p>一百年前，中国共产党成立时只有50多名党员，今天已经成为拥有9500多万名党员、领导着14亿多人口大国、具有重大全球影响力的世界第一大执政党。</p>
+<p>一百年前，中华民族呈现在世界面前的是一派衰败凋零的景象。今天，中华民族向世界展现的是一派欣欣向荣的气象，正以不可阻挡的步伐迈向伟大复兴。</p>
+<p>过去一百年，中国共产党向人民、向历史交出了一份优异的答卷。现在，中国共产党团结带领中国人民又踏上了实现第二个百年奋斗目标新的赶考之路。</p>
+<p>全体中国共产党员！党中央号召你们，牢记初心使命，坚定理想信念，践行党的宗旨，永远保持同人民群众的血肉联系，始终同人民想在一起、干在一起，风雨同舟、同甘共苦，继续为实现人民对美好生活的向往不懈努力，努力为党和人民争取更大光荣！</p>
+<p>同志们、朋友们！</p>
+<p>中国共产党立志于中华民族千秋伟业，百年恰是风华正茂！回首过去，展望未来，有中国共产党的坚强领导，有全国各族人民的紧密团结，全面建成社会主义现代化强国的目标一定能够实现，中华民族伟大复兴的中国梦一定能够实现！</p>
+<p>伟大、光荣、正确的中国共产党万岁！</p>
+<p>伟大、光荣、英雄的中国人民万岁！</p>
+<p>Comrades, please do not delete it!!</p>
+<p>Communist Union Plan:</p>
+<p>We are applying to all proletarians from Note.ms to join us!</p>
+<p>We have a common goal and determination!! I firmly believe in communism!!</p>
+<p>Please maintain peace on these websites!!</p>
+<p>Please guard:</p>
+<pre><code>note.ms/china
+note.ms/China
+note.ms/Chinese
+note.ms/chinese
+note.ms/maozedong
+note.ms/zhouenlai
+note.ms/MZD
+note.ms/ZEL
+note.ms/zhongguogongchandang
+note.ms/CN
+note.ms/cn
+note.ms/aiguo
+note.ms/gongchanzhuyiwansui
+</code></pre>
+<p>If you are interested in joining us, please make sure to copy the following content to promote communism on note.ms!!</p>
+<p>⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿<br>⣿⣿⣿⣿⣿⣿⣿⣿⢿⣿⣿⣿⣿⣿⣿⡏⠁⠘⣻⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿<br>⣿⣿⣿⣿⣿⣿⣿⡏⠀⢿⣿⣿⣿⣿⣿⣶⣦⣼⣿⠻⡿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿<br>⣿⣿⣿⣟⡉⠉⠉⠁⠀⠈⠉⠉⢉⣿⣿⣿⣿⣿⣏⡀⢀⣻⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿<br>⣿⣿⣿⣿⣿⣦⠀⠀ ⠀⠀⢠⣾⣿⣿⣿⣿⣿⣿⣿⣷⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿<br>⣿⣿⣿⣿⣿⡏⠀⣠⣤⡀⠈⣿⣿⣿⣿⣿⣿⣿⡟⠋⠙⢻⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿<br>⣿⣿⣿⣿⣿⣷⣾⣿⣿⣿⣷⣾⣿⣿⣿⣿⣿⣿⣿⣠⣄⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿<br>⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⡇⠁⢘⣻⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿<br>⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣶⣧⣼⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿<br>⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿<br>⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿<br>⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿<br>⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿<br>⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿<br>⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿<br>⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿<br>⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿⣿</p>
+<hr>
+<hr>
+<p>____________________________<em><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong>000000</strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></em><br>_________________________________<strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong>0000000</strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong><br>________________________________________<strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong>00000000</strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong><br>_____________________________________________<em><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong>000000000</strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></em><br>___________________________________________________<strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong>000000000</strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong><br>_______________________________________________________<strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong>000000000</strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong><br>__________________________________________________________<strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong>0000000000</strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong><br>_______________________________________________________________<em><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong>00000000000</strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></em><br>______________________________<em><em><strong><em><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><em><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong>0000000000</strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></em>_<br><em><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong>000000000000000000000000000000____________________________________00000000000</strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong><br><strong><em><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong>000000000000000000000000000000000_____________________________________00000000000</strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong><br><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong>000000000000000000000000000000000000000___________________________________00000000000</strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong>_<br><em><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong>00000000000000000000000000000000000000000___________________________________000000000000</strong></strong></strong></strong></strong></strong></strong></strong></strong></strong>_<br><strong><em><strong><strong><strong><strong><strong><strong><strong><strong><strong>000000000000000000000000000000000000000000______________________________________00000000000</strong></strong></strong></strong></strong></strong></strong></strong></strong></em>_<br><em><strong><strong><strong><strong><strong><strong><strong><strong><strong>0000000000000000000000000000000000000000000________________________________________00000000000</strong></strong></strong></strong></strong></strong></strong></strong></strong></em><br><em><strong><strong><strong><strong><strong><strong><strong><strong>0000000000000000000000000000000000000000000___________________________________________000000000000</strong></strong></strong></strong></strong></strong></strong></strong></em><br>_<strong><strong><strong><strong><strong><strong><strong>0000000000000000000000000000000000000000000______________________________________________000000000000</strong></strong></strong></strong></strong></strong></strong></strong><br>_<strong><strong><strong><strong><strong><strong>000000000000000000000000000000000000000000_________________________________________________0000000000000</strong></strong></strong></strong></strong></strong></strong></em><br>_<strong><strong><strong><strong><strong>000000000000000000000000000000000000000000_____________________________________________________000000000000</strong></strong></strong></strong></strong></strong></em>_<br>_<strong><strong><strong><strong>000000000000000000000000000000000000000000_______________________________________________________0000000000000</strong></strong></strong></strong></strong></strong></em><br>_<strong><strong><strong>0000000000000000000000000000000000000000000_________________________________________________________000000000000</strong></strong></strong></strong></strong></strong>_<br>_<strong><strong>000000000000000000000000000000000000000000000_________________________________________________________0000000000000</strong></strong></strong></strong></strong></strong><br><strong><strong>0000000000000000000000000000000000000000000000000_______________________________________________________0000000000000</strong></strong></strong></strong></strong>_<br>_<strong>000000000000000000000000000000000000000000000000000______________________________________________________00000000000000</strong></strong></strong></strong></strong><br><strong><strong>00000000000000000000000000000000000000000000000000000____________________________________________________00000000000000</strong></strong></strong></strong></em><br><strong><strong><strong>00000000000000000000000000000000000000000000000000000__________________________________________________00000000000000</strong></strong></strong></strong></em><br><strong><strong><strong><strong>00000000000000000000000000000000000000000000000000000________________________________________________00000000000000</strong></strong></strong></strong></em><br>__<strong><strong><strong><strong>0000000000000000000000000____000000000000000000000000______________________________________________000000000000000</strong></strong></strong></strong><br>____<strong><strong><strong><strong>000000000000000000000________000000000000000000000000____________________________________________000000000000000</strong></strong></strong></strong><br>______<strong><strong><strong><strong>0000000000000000_____________000000000000000000000000__________________________________________000000000000000</strong></strong></strong></strong><br>________<strong><strong><strong><strong>000000000000_________________000000000000000000000000________________________________________000000000000000</strong></strong></strong></strong><br>_________<em><strong><strong><strong><strong>00000000_____________________000000000000000000000000______________________________________00000000000000</strong></strong></strong></strong></em><br>___________<em><strong><strong><strong><strong>0000_________________________000000000000000000000000____________________________________00000000000000</strong></strong></strong></strong></em><br>__________________________________________<em><strong><strong><strong><strong>000000000000000000000000_________________________________000000000000000</strong></strong></strong></strong></em><br>____________________________________________<em><strong><strong><strong><strong>000000000000000000000000_______________________________000000000000000</strong></strong></strong></strong></em><br>______________________________________________<em><strong><strong><strong><strong>0000000000000000000000000____________________________000000000000000</strong></strong></strong></strong></em><br>_______________________________________________<strong><strong><strong><strong><strong>000000000000000000000000__________________________000000000000000</strong></strong></strong></strong></strong><br>________________________________________________<em><strong><strong><strong><strong><strong>0000000000000000000000000_______________________00000000000000</strong></strong></strong></strong></strong></em><br>__________________________________________________<em><strong><strong><strong><strong><strong>0000000000000000000000000____________________000000000000000</strong></strong></strong></strong></strong></em><br>_____________________________________________________<em><strong><strong><strong><strong><strong>000000000000000000000000_________________0000000000000000</strong></strong></strong></strong></strong></em><br>________________________________________<strong><strong><strong><strong><strong><strong>000000_______0000000000000000000000000______________0000000000000000</strong></strong></strong></strong></strong></strong><br>_____________________________________<em><strong><strong><strong><strong><strong><strong>00000000_________0000000000000000000000000___________0000000000000000</strong></strong></strong></strong></strong></strong></em><br>___________________________________<em><strong><strong><strong><strong><strong><strong>0000000000___________0000000000000000000000000_______000000000000000000</strong></strong></strong></strong></strong></strong></em><br>_________________________________<strong><strong><strong><strong><strong><strong><strong>00000000000_____________0000000000000000000000000___0000000000000000000</strong></strong></strong></strong></strong></strong></strong><br>__________________________<em><strong><strong><strong><strong><strong><strong><strong>000000000000000000_______________0000000000000000000000000000000000000000000</strong></strong></strong></strong></strong></strong></strong></em><br>______________________<strong><strong><strong><strong><strong><strong><strong><strong>00000000000000000000000_______________0000000000000000000000000000000000000000</strong></strong></strong></strong></strong></strong></strong></strong><br>___________________<strong><strong><strong><strong><strong><strong><strong><strong><strong>000000000000000000000000000______________000000000000000000000000000000000000</strong></strong></strong></strong></strong></strong></strong></strong></strong><br>_________________<em><strong><strong><strong><strong><strong><strong><strong><strong><strong>00000000000000000000000000000000___________0000000000000000000000000000000000</strong></strong></strong></strong></strong></strong></strong></strong></strong></em><br>______________<em><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong>00000000000000000_____000000000000000000000000000000000000000000000000000000</strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></em><br>_____________<strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong>00000000000000000_______000000000000000000000000000000000000000000000000000</strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong><br>____________<em><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong>000000000000000000__________00000000000000000000000000000000000000000000000000</strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></em><br>___________<em><strong><strong><strong><strong><strong><strong><strong><strong><strong>0000000000000000000______________00000000000000000000000000000000000000000000000000</strong></strong></strong></strong></strong></strong></strong></strong></strong></em><br>__________<em><strong><strong><strong><strong><strong><strong><strong><strong>0000000000000000000____________________0000000000000000000000000000000000000000000000000</strong></strong></strong></strong></strong></strong></strong></strong></em><br>_________<em><strong><strong><strong><strong><strong><strong><strong>000000000000000000____________________________00000000000000000000000000000000000000000000000</strong></strong></strong></strong></strong></strong></strong></em><br>_________<em><strong><strong><strong><strong><strong><strong>000000000000000000____________________________________0000000000000000000000000000000000000000000</strong></strong></strong></strong></strong></strong></em><br>_________<em><strong><strong><strong><strong><strong>0000000000000000000_________________________________________________________0000000000000000000000000</strong></strong></strong></strong></strong></em><br>_________<em><strong><strong><strong><strong>00000000000000000000____________________________________________________________0000000000000000000000000</strong></strong></strong></strong></em><br>__________<em><strong><strong><strong>0000000000000000000________________________________________________________________0000000000000000000000000</strong></strong></strong></em><br>_________<em><strong><strong><strong>0000000000000000000____________________________________________________________________0000000000000000000000</strong></strong></strong></em><br>_________<em><strong><strong><strong>00000000000000000________________________________________________________________________00000000000000000000</strong></strong></strong></em><br>________<strong><strong><strong><strong>000000000000000____________________________________________________________________________00000000000000000</strong></strong></strong></strong><br>______<strong><strong><strong><strong><strong>0000000000000________________________________________________________________________________0000000000000</strong></strong></strong></strong></strong><br>______<strong><strong><strong><strong><strong><strong>000000_______________________________________________________________________________________000000000</strong></strong></strong></strong></strong></strong><br>__________________________________________________________________________________________________<strong><strong><strong><strong><strong><strong><strong><strong>00</strong></strong></strong></strong></strong></strong></strong></strong></p>
+<hr>
+<hr>
+<p>Comrades and friends</p>
+<p>Today is a very important and solemn day in the history of the CPC and the Chinese nation. We are gathered here to celebrate the centennial of the founding of the CPC, look back on the glorious course of the CPC’s centennial struggle, and look forward to the bright future of the great rejuvenation of the Chinese nation</p>
+<p>First of all, on behalf of the Central Committee of the Communist Party of China, I would like to extend warm festival congratulations to all Member of the Communist Party of China!</p>
+<p>Here, on behalf of the Party and the people, I solemnly declare that through the continuous struggle of the entire Party and the people of all ethnic groups in the country, we have achieved the first centenary goal, built a moderately prosperous society in all respects on the land of China, historically solved the problem of absolute poverty, and are vigorously moving towards the second centenary goal of building a socialist modernized strong country in all respects. This is the great honor of the Chinese nation! This is the great honor of the Chinese people! This is the great honor of the CPC!</p>
+<p>Comrades and friends!</p>
+<p>The Chinese nation is a great nation in the world, with a civilization history of over 5000 years and an indelible contribution to the progress of human civilization. After the Opium War in 1840, China gradually became a semi colonial and semi feudal society. The country suffered humiliation, the people suffered hardship, and civilization suffered dust. The Chinese nation suffered unprecedented disasters. Since then, achieving the great rejuvenation of the Chinese nation has become the greatest dream of the Chinese people and the Chinese nation.</p>
+<p>In order to save the nation from danger, the Chinese people rose up in rebellion, and people with lofty ideals ran and shouted. The Taiping Heavenly Kingdom Movement, the Wuxu Reform, the Boxer Rebellion, and the Xinhai Revolution emerged one after another. Various national salvation plans were introduced in turn, but all ended in failure. China urgently needs new ideas to guide the national salvation movement and new organizations to unite revolutionary forces.</p>
+<p>The October Revolution brought Marxism Leninism to China with the sound of a cannon. In the great awakening of the Chinese people and the Chinese nation, and in the close combination of Marxism Leninism and the Chinese labor movement, the CPC came into being. The emergence of the Communist Party in China was a groundbreaking event that profoundly changed the direction and process of the development of the Chinese nation after modern times, the future and destiny of the Chinese people and the Chinese nation, and the trend and pattern of world development.</p>
+<p>Once the CPC was born, it established its original mission of seeking happiness for the Chinese people and rejuvenation for the Chinese nation. All the struggles, sacrifices and innovations that the CPC has united and led the Chinese people over the past 100 years can be summed up as one theme: to achieve the great rejuvenation of the Chinese nation.</p>
+<p>——In order to realize the great rejuvenation of the Chinese nation, the CPC united and led the Chinese people to fight hard and indomitable, and created the great achievements of the new democratic revolution. We have gone through the Northern Expedition War, Land Revolution War, Anti Japanese War, and Liberation War, opposing armed counter revolution with armed revolution, overthrowing the three great mountains of imperialism, feudalism, and bureaucratic capitalism, and establishing the People’s Republic of China where the people are the masters of the country, achieving national independence and people’s liberation. The victory of the New Democratic Revolution completely ended the history of the semi colonial and semi feudal society in old China, completely ended the scattered situation in old China, completely abolished the unequal treaties imposed on China by foreign powers and all the privileges of imperialism in China, and created fundamental social conditions for achieving the great rejuvenation of the Chinese nation. The CPC and the Chinese people solemnly declared to the world with their brave and tenacious struggle that the Chinese people have stood up and the era of the Chinese nation being slaughtered and bullied is gone forever!</p>
+<p>——In order to realize the great rejuvenation of the Chinese nation, the CPC has united and led the Chinese people to rely on their own efforts and work hard to become stronger, creating great achievements in socialist revolution and construction. We have carried out the socialist revolution, eliminated the feudal exploitation and oppression system that has lasted for thousands of years in China, established the basic socialist system, promoted socialist construction, defeated the subversion, destruction, and armed provocation of imperialism and hegemonism, achieved the most extensive and profound social change in the history of the Chinese nation, and achieved a great leap forward in socialist society for the impoverished and populous Eastern powers, It has laid the fundamental political prerequisite and institutional foundation for achieving the great rejuvenation of the Chinese nation. The CPC and the Chinese people solemnly declare to the world with their brave and tenacious struggle that the Chinese people are not only good at destroying the old world, but also good at building a new world. Only socialism can save China, and only socialism can develop China!</p>
+<p>——In order to realize the great rejuvenation of the Chinese nation, the CPC has united and led the Chinese people, emancipated their minds and forged ahead with determination, creating great achievements in reform, opening up and socialist modernization. We have achieved a profound and significant turning point in the history of the Communist Party of China since the founding of the People’s Republic of China. We have established the Party’s basic line in the primary stage of socialism, steadfastly promoted reform and opening up, overcame risks and challenges from all aspects, created, adhered to, defended, and developed socialism with Chinese characteristics, and achieved a transition from a highly centralized planned economy system to a vibrant socialist market economy system The historic transformation from closed and semi closed to all-round opening has achieved a historic breakthrough from relatively backward productivity to the second largest economy in the world. It has achieved a historic leap in people’s lives from insufficient food and clothing to an overall well-off society and towards a comprehensive well-off society, providing a new dynamic institutional guarantee and material conditions for rapid development to achieve the great rejuvenation of the Chinese nation. The CPC and the Chinese people solemnly declared to the world with their brave and tenacious struggle that reform and opening up is the key to determine the future and destiny of contemporary China, and China has caught up with the times with great strides!</p>
+<p>——In order to realize the great rejuvenation of the Chinese nation, the CPC has united and led the Chinese people to be confident, self reliant, honest and innovative. It has taken charge of great struggles, great projects, great undertakings and great dreams, and created great achievements of socialism with Chinese characteristics in the new era. Since the 18th National Congress of the Communist Party of China, socialism with Chinese characteristics has entered a new era. We adhere to and strengthen the comprehensive leadership of the Party, coordinate the overall layout of the “Five in One” and the strategic layout of the “Four Comprehensives”, adhere to and improve the socialist system with Chinese characteristics, promote the modernization of the national governance system and capacity, adhere to governing the Party according to regulations, form a relatively complete system of Party regulations, and overcome a series of major risks and challenges, Realizing the first centenary goal and clarifying the strategic arrangements for achieving the second centenary goal, the Party and the state have achieved historic achievements and undergone historic changes, providing a more comprehensive institutional guarantee, a more solid material foundation, and a more proactive spiritual force for achieving the great rejuvenation of the Chinese nation. The CPC and the Chinese people solemnly declared to the world with their brave and tenacious struggle that the Chinese nation has ushered in a great leap from standing up, getting rich to becoming strong, and the realization of the great rejuvenation of the Chinese nation has entered an irreversible historical process!</p>
+<p>起来，饥寒交迫的奴隶，<br>起来，全世界受苦的人，<br>满腔的热血已经沸腾，要为真理而斗争！<br>旧世界打个落花流水，奴隶们起来起来，<br>不要说我们一无所有，<br>我们要做天下的主人！<br>这是最后的斗争，<br>团结起来到明天。<br>英特纳雄耐尔，就一定要实现！<br>这是最后的斗争，<br>团结起来到明天。<br>英特纳雄耐尔，就一定要实现！</p>
+<p>从来就没有什么救世主，<br>也不靠神仙皇帝。<br>要创造人类的幸福，<br>全靠我们自己！<br>我们要夺回劳动果实，<br>让思想突破牢笼。<br>快把那炉火烧得通红，<br>趁热打铁才能成功。<br>这是最后的斗争，<br>团结起来到明天。<br>英特纳雄耐尔，就一定要实现！<br>这是最后的斗争，<br>团结起来到明天。<br>英特纳雄耐尔，就一定要实现！</p>
+<p>是谁创造了人类世界？<br>是我们劳动群众！<br>一切归劳动者所有，<br>哪能容得寄生虫！<br>最可恨那些毒蛇猛兽，<br>吃尽了我们的血肉！<br>一旦把他们消灭干净，<br>鲜红的太阳照遍全球！<br>这是最后的斗争，<br>团结起来到明天。<br>英特纳雄耐尔，就一定要实现！<br>这是最后的斗争，<br>团结起来到明天。<br>英特纳雄耐尔，就一定要实现！</p>
+<p>起来，饥寒交迫的奴隶，<br>起来，全世界受苦的人，<br>满腔的热血已经沸腾，要为真理而斗争！<br>旧世界打个落花流水，奴隶们起来起来，<br>不要说我们一无所有，<br>我们要做天下的主人！<br>这是最后的斗争，<br>团结起来到明天。<br>英特纳雄耐尔，就一定要实现！<br>这是最后的斗争，<br>团结起来到明天。<br>英特纳雄耐尔，就一定要实现！</p>
+<p>从来就没有什么救世主，<br>也不靠神仙皇帝。<br>要创造人类的幸福，<br>全靠我们自己！<br>我们要夺回劳动果实，<br>让思想突破牢笼。<br>快把那炉火烧得通红，<br>趁热打铁才能成功。<br>这是最后的斗争，<br>团结起来到明天。<br>英特纳雄耐尔，就一定要实现！<br>这是最后的斗争，<br>团结起来到明天。<br>英特纳雄耐尔，就一定要实现！</p>
+<p>是谁创造了人类世界？<br>是我们劳动群众！<br>一切归劳动者所有，<br>哪能容得寄生虫！<br>最可恨那些毒蛇猛兽，<br>吃尽了我们的血肉！<br>一旦把他们消灭干净，<br>鲜红的太阳照遍全球！<br>这是最后的斗争，<br>团结起来到明天。<br>英特纳雄耐尔，就一定要实现！<br>这是最后的斗争，<br>团结起来到明天。<br>英特纳雄耐尔，就一定要实现!</p>
+<p>这就是信仰！</p>
+<p>ssj作图（比例不对）</p>
+<hr>
+<hr>
+<p><em><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong>000000</strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></em>____________________________________________________________________________________________________________________________________________________________________________________________________________________________________________<br><em><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong>0000000</strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></em>_______________________________________________________________________________________________________________________________________________________________________________________________________________________________________<br><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong>00000000</strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong>________________________________________________________________________________________________________________________________________________________________________________________________________________________________<br><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong>000000000</strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong>___________________________________________________________________________________________________________________________________________________________________________________________________________________________<br><em><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong>000000000</strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></em>_____________________________________________________________________________________________________________________________________________________________________________________________________________________<br><em><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong>000000000</strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></em>_________________________________________________________________________________________________________________________________________________________________________________________________________________<br><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong>0000000000</strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong>______________________________________________________________________________________________________________________________________________________________________________________________________________<br><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong>00000000000</strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong>_________________________________________________________________________________________________________________________________________________________________________________________________________<br><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong>0000000000</strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong>______________________________________________________________________________________________________________________________________________________________________________________________________<br><em><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong>000000000000000000000000000000____________________________________00000000000</strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></em>_____________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________<br><em><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong>000000000000000000000000000000000_____________________________________00000000000</strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></em>_____________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________<br><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong>000000000000000000000000000000000000000___________________________________00000000000</strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong>_______________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________<br><em><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong>00000000000000000000000000000000000000000___________________________________000000000000</strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></em>______________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________<br><em><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong>000000000000000000000000000000000000000000______________________________________00000000000</strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></em>_______________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________<br><em><strong><strong><strong><strong><strong><strong><strong><strong><strong>0000000000000000000000000000000000000000000________________________________________00000000000</strong></strong></strong></strong></strong></strong></strong></strong></strong></em>________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________<br><em><strong><strong><strong><strong><strong><strong><strong><strong>0000000000000000000000000000000000000000000___________________________________________000000000000</strong></strong></strong></strong></strong></strong></strong></strong></em>________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________<br><em><strong><strong><strong><strong><strong><strong><strong>0000000000000000000000000000000000000000000______________________________________________000000000000</strong></strong></strong></strong></strong></strong></strong></em>_________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________<br><em><strong><strong><strong><strong><strong><strong>000000000000000000000000000000000000000000_________________________________________________0000000000000</strong></strong></strong></strong></strong></strong></em>__________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________<br><em><strong><strong><strong><strong><strong>000000000000000000000000000000000000000000_____________________________________________________000000000000</strong></strong></strong></strong></strong></em>___________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________<br><em><strong><strong><strong><strong>000000000000000000000000000000000000000000_______________________________________________________0000000000000</strong></strong></strong></strong></em>____________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________<br><em><strong><strong><strong>0000000000000000000000000000000000000000000_________________________________________________________000000000000</strong></strong></strong></em>______________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________<br><em><strong><strong>000000000000000000000000000000000000000000000_________________________________________________________0000000000000</strong></strong></em>_______________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________<br><strong><strong>0000000000000000000000000000000000000000000000000_______________________________________________________0000000000000</strong></strong>_______________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________<br><em><strong>000000000000000000000000000000000000000000000000000______________________________________________________00000000000000</strong></em>_______________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________<br><strong><strong>00000000000000000000000000000000000000000000000000000____________________________________________________00000000000000</strong></strong>_____________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________<br><strong><strong><strong>00000000000000000000000000000000000000000000000000000__________________________________________________00000000000000</strong></strong></strong>___________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________<br><strong><strong><strong><strong>00000000000000000000000000000000000000000000000000000________________________________________________00000000000000</strong></strong></strong></strong>_________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________<br><strong><strong><strong><strong><strong>0000000000000000000000000____000000000000000000000000______________________________________________000000000000000</strong></strong></strong></strong></strong>______________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________<br><strong><strong><strong><strong><strong><strong>000000000000000000000________000000000000000000000000____________________________________________000000000000000</strong></strong></strong></strong></strong></strong>____________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________<br><strong><strong><strong><strong><strong><strong><strong>0000000000000000_____________000000000000000000000000__________________________________________000000000000000</strong></strong></strong></strong></strong></strong></strong>__________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________<br><strong><strong><strong><strong><strong><strong><strong><strong>000000000000_________________000000000000000000000000________________________________________000000000000000</strong></strong></strong></strong></strong></strong></strong></strong>________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________<br><strong><strong><strong><strong><strong><strong><strong><strong><strong>00000000_____________________000000000000000000000000______________________________________00000000000000</strong></strong></strong></strong></strong></strong></strong></strong></strong>_______________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________<br><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong>0000_________________________000000000000000000000000____________________________________00000000000000</strong></strong></strong></strong></strong></strong></strong></strong></strong></strong>_____________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________<br><em><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong>000000000000000000000000_________________________________000000000000000</strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></em>______________________________________________________________________________________________________________________________________________________________________________________________________________________________<br><em><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong>000000000000000000000000_______________________________000000000000000</strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></em>____________________________________________________________________________________________________________________________________________________________________________________________________________________________<br><em><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong>0000000000000000000000000____________________________000000000000000</strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></em>__________________________________________________________________________________________________________________________________________________________________________________________________________________________<br><em><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong>000000000000000000000000__________________________000000000000000</strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></em>_________________________________________________________________________________________________________________________________________________________________________________________________________________________<br><em><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong>0000000000000000000000000_______________________00000000000000</strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></em>________________________________________________________________________________________________________________________________________________________________________________________________________________________<br><em><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong>0000000000000000000000000____________________000000000000000</strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></em>______________________________________________________________________________________________________________________________________________________________________________________________________________________<br><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong>000000000000000000000000_________________0000000000000000</strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong>___________________________________________________________________________________________________________________________________________________________________________________________________________________<br><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong>000000_______0000000000000000000000000______________0000000000000000</strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong>________________________________________________________________________________________________________________________________________________________________________________________________________________________________<br><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong>00000000_________0000000000000000000000000___________0000000000000000</strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong>___________________________________________________________________________________________________________________________________________________________________________________________________________________________________<br><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong>0000000000___________0000000000000000000000000_______000000000000000000</strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong>_____________________________________________________________________________________________________________________________________________________________________________________________________________________________________<br><em><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong>00000000000_____________0000000000000000000000000___0000000000000000000</strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></em>_______________________________________________________________________________________________________________________________________________________________________________________________________________________________________<br><em><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong>000000000000000000_______________0000000000000000000000000000000000000000000</strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></em>______________________________________________________________________________________________________________________________________________________________________________________________________________________________________________<br><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong>00000000000000000000000_______________0000000000000000000000000000000000000000</strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong>__________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________<br><em><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong>000000000000000000000000000______________000000000000000000000000000000000000</strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></em>_____________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________<br><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong>00000000000000000000000000000000___________0000000000000000000000000000000000</strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong>_______________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________<br><em><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong>00000000000000000_____000000000000000000000000000000000000000000000000000000</strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></em>__________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________<br><em><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong>00000000000000000_______000000000000000000000000000000000000000000000000000</strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></em>___________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________<br><em><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong>000000000000000000__________00000000000000000000000000000000000000000000000000</strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></em>____________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________<br><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong>0000000000000000000______________00000000000000000000000000000000000000000000000000</strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong>_____________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________<br><em><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong>0000000000000000000____________________0000000000000000000000000000000000000000000000000</strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></em>______________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________<br><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong>000000000000000000____________________________00000000000000000000000000000000000000000000000</strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong>_______________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________<br><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong>000000000000000000____________________________________0000000000000000000000000000000000000000000</strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong>_______________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________<br><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong>0000000000000000000_________________________________________________________0000000000000000000000000</strong></strong></strong></strong></strong></strong></strong></strong></strong></strong>_______________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________<br><strong><strong><strong><strong><strong><strong><strong><strong><strong>00000000000000000000____________________________________________________________0000000000000000000000000</strong></strong></strong></strong></strong></strong></strong></strong></strong>_______________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________<br><em><strong><strong><strong><strong><strong><strong><strong><strong>0000000000000000000________________________________________________________________0000000000000000000000000</strong></strong></strong></strong></strong></strong></strong></strong></em>______________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________<br><strong><strong><strong><strong><strong><strong><strong><strong>0000000000000000000____________________________________________________________________0000000000000000000000</strong></strong></strong></strong></strong></strong></strong></strong>_______________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________<br><strong><strong><strong><strong><strong><strong><strong><strong>00000000000000000________________________________________________________________________00000000000000000000</strong></strong></strong></strong></strong></strong></strong></strong>_______________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________<br><strong><strong><strong><strong><strong><strong><strong><strong>000000000000000____________________________________________________________________________00000000000000000</strong></strong></strong></strong></strong></strong></strong></strong>________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________<br><strong><strong><strong><strong><strong><strong><strong><strong>0000000000000________________________________________________________________________________0000000000000</strong></strong></strong></strong></strong></strong></strong></strong>__________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________<br><strong><strong><strong><strong><strong><strong><strong><strong><strong>000000_______________________________________________________________________________________000000000</strong></strong></strong></strong></strong></strong></strong></strong></strong>__________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________________<br><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong><strong>00</strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong></strong>______________________________________________________________________________________________________________________________________________________________________</p>
+<hr>
+<hr>
+<hr>
+<hr>
+<hr>
+<hr>
+<hr>
+<hr>
+<hr>
+<hr>
+<hr>
+<hr>
+<hr>
+<hr>
+<hr>
+<hr>
+<hr>
+<hr>
+<hr>
+<hr>
+<hr>
+<hr>
+<hr>
+<hr>
+<hr>
+<hr>
+<hr>
+<hr>
+<hr>
+<hr>
+<hr>
+<hr>
+<hr>
+<hr>
+<hr>
+<hr>
+<hr>
+<hr>
+<hr>
+<hr>
+<hr>
+<hr>
+<hr>
+<hr>
+<hr>
+<hr>
+<hr>
+<hr>
+<hr>
+<hr>
+<hr>
+<hr>
+<hr>
+<p>.</p>
+
+		</div>
+
+		
+		<div class="post-copyright-info w-full my-8 px-2 sm:px-6 md:px-8">
+			<div class="article-copyright-info-container">
+    <ul>
+        <li><strong>标题:</strong> 爱国爱党爱人民</li>
+        <li><strong>作者:</strong> ZRY-Kevin</li>
+        <li><strong>创建于
+                :</strong> 2026-05-02 22:39:22</li>
+        
+            <li>
+                <strong>更新于
+                    :</strong> 2026-05-02 22:41:33
+            </li>
+        
+        <li>
+            <strong>链接:</strong> https://mkw-kevin.github.io/2026/05/02/爱国爱党爱人民/
+        </li>
+        <li>
+            <strong>
+                版权声明:
+            </strong>
+            
+
+            
+                本文章采用 <a class="license" target="_blank" rel="noopener" href="https://creativecommons.org/licenses/by-nc-sa/4.0">CC BY-NC-SA 4.0</a> 进行许可。
+            
+        </li>
+    </ul>
+</div>
+
+		</div>
+		
+
+		
+
+		
+
+		
+
+
+		
+		<div class="comment-container px-2 sm:px-6 md:px-8 pb-8">
+			<div class="comments-container mt-10 w-full ">
+    <div id="comment-anchor" class="w-full h-2.5"></div>
+    <div class="comment-area-title w-full my-1.5 md:my-2.5 text-xl md:text-3xl font-bold">
+        评论
+    </div>
+    
+
+        
+            
+    <div id="waline"></div>
+    <script type="module" data-swup-reload-script>
+      import { init } from '/js/libs/waline.js';
+
+      (function() {
+        const startPath = location.pathname;
+        const startTime = Date.now();
+        const retryDelay = 200;
+        const retryLimit = 5000;
+
+        const runWaline = () => {
+          if (location.pathname !== startPath) {
+            return;
+          }
+
+          const container = document.getElementById('waline');
+          if (!container) {
+            if (Date.now() - startTime < retryLimit) {
+              setTimeout(runWaline, retryDelay);
+            }
+            return;
+          }
+
+          if (window.redefineWalineInstance?.destroy) {
+            window.redefineWalineInstance.destroy();
+          }
+
+          container.innerHTML = '';
+          window.redefineWalineInstance = init({
+            el: '#waline',
+            serverURL: 'https://example.example.com',
+            path: location.pathname,
+            dark: 'body[class~="dark-mode"]',
+            reaction: false,
+            requiredMeta: ['nick', 'mail'],
+            emoji: [],
+                      lang: 'zh-CN',
+          });
+        };
+
+        runWaline();
+      })();
+    </script>
+
+
+
+        
+    
+</div>
+
+		</div>
+		
+	</div>
+
+	
+	<div class="toc-content-container">
+		<div class="post-toc-wrap">
+	<div class="post-toc">
+		<div class="toc-title">目录</div>
+		<div class="page-title">爱国爱党爱人民</div>
+		<ol class="nav"><li class="nav-item nav-level-1"><a class="nav-link" href="#%E7%88%B1%E5%9B%BD%E7%88%B1%E5%85%9A%E7%88%B1%E4%BA%BA%E6%B0%91%E2%80%94%E2%80%94%E4%B8%80%E7%BE%A4%E7%88%B1%E5%9B%BD%E4%BA%BA%E5%A3%AB%E7%9A%84%E5%AE%A3%E8%AE%B2"><span class="nav-text">爱国爱党爱人民——一群爱国人士的宣讲</span></a><ol class="nav-child"><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%B8%A9%E9%A6%A8%E6%8F%90%E7%A4%BA"><span class="nav-text">温馨提示</span></a></li><li class="nav-item nav-level-3"><a class="nav-link" href="#%E6%AD%A3%E6%96%87"><span class="nav-text">正文</span></a></li></ol></li></ol>
+
+	</div>
+</div>
+	</div>
+	
+</div>
+
+			</div>
+
+			
+		</div>
+
+		<div class="main-content-footer">
+			<footer class="footer mt-5 py-5 h-auto text-base text-third-text-color relative border-t-2 border-t-border-color">
+    <div class="info-container py-3 text-center">
+        
+        <div class="text-center">
+            &copy;
+            
+              <span>2026</span>
+              -
+            
+            2026&nbsp;&nbsp;<i class="fa-solid fa-heart fa-beat" style="--fa-animation-duration: 0.5s; color: #f54545"></i>&nbsp;&nbsp;<a href="/">ZRY-Kevin</a>
+            
+                
+                <p class="post-count space-x-0.5">
+                    <span>
+                        共撰写了 1 篇文章
+                    </span>
+                    
+                        <span>
+                            共 9.3k 字
+                        </span>
+                    
+                </p>
+            
+        </div>
+        
+            <script data-swup-reload-script src="https://cn.vercount.one/js"></script>
+            <div class="relative text-center lg:absolute lg:right-[20px] lg:top-1/2 lg:-translate-y-1/2 lg:text-right">
+                
+                    <span id="busuanzi_container_site_uv" class="lg:!block">
+                        <span class="text-sm">访问人数</span>
+                        <span id="busuanzi_value_site_uv"></span>
+                    </span>
+                
+                
+                    <span id="busuanzi_container_site_pv" class="lg:!block">
+                        <span class="text-sm">总访问量</span>
+                        <span id="busuanzi_value_site_pv"></span>
+                    </span>
+                
+            </div>
+        
+        <div class="relative text-center lg:absolute lg:left-[20px] lg:top-1/2 lg:-translate-y-1/2 lg:text-left">
+            <span class="lg:block text-sm">由 <?xml version="1.0" encoding="utf-8"?><!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 1.1//EN" "http://www.w3.org/Graphics/SVG/1.1/DTD/svg11.dtd"><svg class="relative top-[2px] inline-block align-baseline" version="1.1" id="圖層_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" x="0px" y="0px" width="1rem" height="1rem" viewBox="0 0 512 512" enable-background="new 0 0 512 512" xml:space="preserve"><path fill="#0E83CD" d="M256.4,25.8l-200,115.5L56,371.5l199.6,114.7l200-115.5l0.4-230.2L256.4,25.8z M349,354.6l-18.4,10.7l-18.6-11V275H200v79.6l-18.4,10.7l-18.6-11v-197l18.5-10.6l18.5,10.8V237h112v-79.6l18.5-10.6l18.5,10.8V354.6z"/></svg><a target="_blank" class="text-base" href="https://hexo.io">Hexo</a> 驱动</span>
+            <span class="text-sm lg:block">主题&nbsp;<a class="text-base" target="_blank" href="https://github.com/EvanNotFound/hexo-theme-redefine">Redefine v2.9.0</a></span>
+        </div>
+        
+        
+            <div>
+                博客已运行 <span class="odometer" id="runtime_days" ></span> 天 <span class="odometer" id="runtime_hours"></span> 小时 <span class="odometer" id="runtime_minutes"></span> 分钟 <span class="odometer" id="runtime_seconds"></span> 秒
+            </div>
+        
+        
+            <script data-swup-reload-script>
+                try {
+                    function odometer_init() {
+                    const elements = document.querySelectorAll('.odometer');
+                    elements.forEach(el => {
+                        new Odometer({
+                            el,
+                            format: '( ddd).dd',
+                            duration: 200
+                        });
+                    });
+                    }
+                    odometer_init();
+                } catch (error) {}
+            </script>
+        
+        
+        
+    </div>  
+</footer>
+		</div>
+	</div>
+
+	
+	<div class="post-tools">
+		<div class="post-tools-container">
+	<ul class="article-tools-list">
+		<!-- TOC aside toggle -->
+		
+		<li class="right-bottom-tools page-aside-toggle">
+			<i class="fa-regular fa-outdent"></i>
+		</li>
+		
+
+		<!-- go comment -->
+		
+		<li class="go-comment">
+			<i class="fa-regular fa-comments"></i>
+		</li>
+		
+	</ul>
+</div>
+	</div>
+	
+
+	<div class="right-side-tools-container">
+		<div class="side-tools-container">
+	<ul class="hidden-tools-list">
+		<li class="right-bottom-tools tool-font-adjust-plus flex justify-center items-center">
+			<i class="fa-regular fa-magnifying-glass-plus"></i>
+		</li>
+
+		<li class="right-bottom-tools tool-font-adjust-minus flex justify-center items-center">
+			<i class="fa-regular fa-magnifying-glass-minus"></i>
+		</li>
+
+		<li class="right-bottom-tools tool-dark-light-toggle flex justify-center items-center">
+			<i class="fa-regular fa-moon"></i>
+		</li>
+
+		<!-- rss -->
+		
+
+		
+
+		<li class="right-bottom-tools tool-scroll-to-bottom flex justify-center items-center">
+			<i class="fa-regular fa-arrow-down"></i>
+		</li>
+	</ul>
+
+	<ul class="visible-tools-list">
+		<li class="right-bottom-tools toggle-tools-list flex justify-center items-center">
+			<i class="fa-regular fa-cog fa-spin"></i>
+		</li>
+		
+		<li class="right-bottom-tools tool-scroll-to-top flex justify-center items-center">
+			<i class="arrow-up fas fa-arrow-up"></i>
+			<span class="percent"></span>
+		</li>
+		
+		
+	</ul>
+</div>
+	</div>
+
+	<div class="image-viewer-container" role="dialog" aria-modal="true" aria-label="图片查看器">
+	<button class="image-viewer-close" type="button" aria-label="关闭">
+		<i class="fa-solid fa-xmark"></i>
+	</button>
+	<button class="image-viewer-prev" type="button" aria-label="上一页">
+		<i class="fa-solid fa-chevron-left"></i>
+	</button>
+	<div class="image-viewer-frame">
+		<img src="" alt="">
+	</div>
+	<div class="image-viewer-exif-panel hidden absolute left-1/2 bottom-20 -translate-x-1/2 w-[min(92vw,420px)] max-h-[60vh] overflow-hidden rounded-2xl bg-background-color-transparent-80 p-4 text-left shadow-redefine-flat backdrop-blur-md" role="dialog" aria-label="EXIF" aria-hidden="true">
+		<div class="flex items-center justify-between mb-3">
+			<span class="text-sm font-semibold text-first-text-color">EXIF</span>
+			<button class="image-viewer-exif-close flex h-8 w-8 items-center justify-center rounded-full bg-background-color-transparent-80 text-first-text-color transition hover:bg-background-color-transparent-40" type="button" aria-label="关闭">
+				<i class="fa-solid fa-xmark text-[0.65rem]"></i>
+			</button>
+		</div>
+		<div class="image-viewer-exif-cards grid grid-cols-1 sm:grid-cols-2 gap-3 max-h-[50vh] overflow-y-auto pr-1 scrollbar-hide"></div>
+		<template class="image-viewer-exif-card-template">
+			<div class="rounded-lg bg-background-color-transparent-40 px-3 py-2">
+				<div class="image-viewer-exif-card-header flex items-center gap-2 mb-1">
+					<i class="image-viewer-exif-card-icon fa-solid fa-circle-info text-xs text-third-text-color"></i>
+					<div class="image-viewer-exif-card-title text-xs font-semibold text-first-text-color"></div>
+				</div>
+				<div class="image-viewer-exif-card-items flex flex-col gap-1"></div>
+			</div>
+		</template>
+	</div>
+	<button class="image-viewer-exif-toggle flex items-center gap-2 hidden absolute left-1/2 bottom-6 -translate-x-1/2 rounded-full border border-border-color bg-background-color-transparent-80 px-4 py-2 text-first-text-color backdrop-blur-md transition hover:bg-background-color-transparent-40" type="button" aria-label="EXIF" aria-expanded="false">
+		<i class="fa-solid fa-circle-info text-xs"></i>
+		<span class="text-xs font-semibold uppercase tracking-wider">EXIF</span>
+	</button>
+	<button class="image-viewer-next" type="button" aria-label="下一页">
+		<i class="fa-solid fa-chevron-right"></i>
+	</button>
+</div>
+
+
+	
+	<div class="search-pop-overlay">
+	<div class="popup search-popup">
+		<div class="search-header">
+			<span class="search-input-field-pre">
+				<i class="fa-solid fa-keyboard"></i>
+			</span>
+			<div class="search-input-container">
+				<input autocomplete="off" autocorrect="off" autocapitalize="off" placeholder="站内搜索您需要的内容..." spellcheck="false" type="search" class="search-input">
+			</div>
+			<span class="popup-btn-close">
+				<i class="fa-solid fa-times"></i>
+			</span>
+		</div>
+		<div id="search-result">
+			<div id="no-result">
+				<i class="fa-solid fa-spinner fa-spin-pulse fa-5x fa-fw"></i>
+			</div>
+		</div>
+	</div>
+</div>
+	
+
+</main>
+
+
+
+<script src="/js/build/libs/Swup.min.js"></script>
+
+<script src="/js/build/libs/SwupSlideTheme.min.js"></script>
+
+<script src="/js/build/libs/SwupScriptsPlugin.min.js"></script>
+
+<script src="/js/build/libs/SwupProgressPlugin.min.js"></script>
+
+<script src="/js/build/libs/SwupScrollPlugin.min.js"></script>
+
+<script src="/js/build/libs/SwupPreloadPlugin.min.js"></script>
+
+<script>
+    window.swup = new Swup({
+        plugins: [
+            new SwupScriptsPlugin({
+                optin: true,
+            }),
+            new SwupProgressPlugin(),
+            new SwupScrollPlugin({
+                offset: 80,
+            }),
+            new SwupSlideTheme({
+                mainElement: ".main-content-body",
+            }),
+            new SwupPreloadPlugin(),
+        ],
+        containers: ["#swup"],
+    });
+
+    window.dispatchEvent(
+        new CustomEvent("redefine:swup:ready", {
+            detail: {
+                swup: window.swup,
+            },
+        }),
+    );
+</script>
+
+
+
+
+	
+<script src="/js/build/main.js" type="module"></script>
+
+
+
+    
+<script src="/js/build/libs/odometer.min.js"></script>
+
+    
+<link rel="stylesheet" href="/assets/odometer-theme-minimal.css">
+
+
+
+
+
+
+
+  
+<script src="/js/build/libs/Typed.min.js"></script>
+
+
+
+
+
+
+
+
+
+
+<script src="/js/build/libs/moment-with-locales.min.js" data-swup-reload-script=""></script>
+
+
+
+	
+</body>
+
+</html>
