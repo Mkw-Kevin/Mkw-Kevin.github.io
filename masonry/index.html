@@ -78,7 +78,7 @@
     
     <!--- Seo Part-->
     
-    <link rel="canonical" href="http://example.com/"/>
+    <link rel="canonical" href="http://example.com/masonry/"/>
     <meta name="robots" content="index,follow">
     <meta name="googlebot" content="index,follow">
     <meta name="revisit-after" content="1 days">
@@ -87,12 +87,14 @@
         
         <meta name="description" content="Hexo Theme Redefine, Redefine Your Hexo Journey.">
 <meta property="og:type" content="website">
-<meta property="og:title" content="ZRY的博客">
-<meta property="og:url" content="http://example.com/index.html">
+<meta property="og:title" content="相册">
+<meta property="og:url" content="http://example.com/masonry/index.html">
 <meta property="og:site_name" content="ZRY的博客">
 <meta property="og:description" content="Hexo Theme Redefine, Redefine Your Hexo Journey.">
 <meta property="og:locale" content="zh_CN">
 <meta property="og:image" content="http://example.com/images/redefine-og.webp">
+<meta property="article:published_time" content="2026-05-07T14:16:04.000Z">
+<meta property="article:modified_time" content="2026-05-07T14:16:36.118Z">
 <meta property="article:author" content="ZRY-Kevin">
 <meta property="article:tag" content="ZRY,Kevin,ZRY-Kevin,博客,Blog">
 <meta name="twitter:card" content="summary">
@@ -108,7 +110,7 @@
     
     <title>
         
-            ZRY的博客 - 留下改变世界的想法
+            相册 | ZRY的博客
         
     </title>
 
@@ -337,180 +339,11 @@
 <main class="page-container" id="swup">
 
 	
-	
-    <style>
-        .home-banner-container {
-            background: none !important;
-        }
-        .home-article-item,
-        .sidebar-links,
-        .sidebar-content,
-        a.page-number,
-        a.extend,
-        .sidebar-links .links:hover,
-        .right-bottom-tools,
-        footer.footer {
-            background-color: var(--background-color-transparent-80) !important;
-        }
-        .right-bottom-tools:hover,
-        a.page-number:hover,
-        a.extend:hover {
-            background-color: var(--primary-color) !important;
-        }
-        .site-info,
-        .home-article-sticky-label {
-            background-color: var(--background-color-transparent-15) !important;
-        }
-        .home-article-sticky-label {
-            backdrop-filter: none !important;
-        }
-    </style>
-    <div class="home-banner-background transition-fade fixed top-0 left-0 w-screen h-screen scale-125 sm:scale-110 box-border will-change-transform bg-cover">
-        <img src="/images/wallhaven-wqery6-light.webp" alt="home-banner-background" class="w-full h-full object-cover dark:hidden">
-        <img src="/images/wallhaven-wqery6-dark.webp" alt="home-banner-background" class="w-full h-full object-cover hidden dark:block">
-    </div>
-
-
-<div class="home-banner-container flex justify-center items-center transition-fade relative">
-    
-    <div class="content mt-8 flex flex-col justify-center items-center transition-fade-down">
-        <div class="description flex flex-col justify-center items-center w-screen font-medium text-center"
-        
-        >
-            欢迎来到ZRY的博客
-            
-            
-            
-            
-            
-                <p><i id="subtitle"></i></p>
-            
-        </div>
-        
-            
-            <div class="absolute bottom-0.5 flex flex-row justify-between max-w-[1340px] items-center w-full px-8 sm:px-12">
-                <div class="flex p-3 bg-gray-300/50 dark:bg-gray-500/40 backdrop-blur-lg border border-white/20 dark:border-gray-500/30 group rounded-full cursor-pointer flex justify-center items-center aspect-square h-full shadow-redefine-flat hover:shadow-redefine-flat-hover transition-shadow" onclick="scrollToMain()" >
-                    <i class="fa-solid fa-arrow-down fa-fw fa-lg group-hover:translate-y-1 transition-transform"></i>
-                </div>
-                <div class="social-contacts px-6 py-3 bg-gray-300/50 dark:bg-gray-500/40 backdrop-blur-lg border border-white/20 dark:border-gray-500/30 shadow-redefine-flat rounded-full flex flex-row gap-3 items-center">
-                    
-                        
-                            
-                            
-                            
-                            
-                            
-                            
-                                <span class="social-contact-item">
-                                    <a target="_blank" href="https://github.com/Mkw-Kevin">
-                                        <i class="fa-brands fa-github fa-fw fa-lg"></i>
-                                    </a>
-                                </span>
-                            
-                        
-                    
-                        
-                            
-                            
-                            
-                            
-                            
-                            
-                                <span class="social-contact-item">
-                                    <a target="_blank" href="https://twitter.com">
-                                        <i class="fa-brands fa-twitter fa-fw fa-lg"></i>
-                                    </a>
-                                </span>
-                            
-                        
-                    
-                        
-                            
-                            
-                            
-                            
-                            
-                            
-                                <span class="social-contact-item">
-                                    <a target="_blank" href="https://facebook.com">
-                                        <i class="fa-brands fa-facebook fa-fw fa-lg"></i>
-                                    </a>
-                                </span>
-                            
-                        
-                    
-                        
-                            
-                            
-                            
-                            
-                            
-                            
-                                
-                                <span class="social-contact-item ">
-                                    <a href="mailto:menkaiwen0626@outlook.com">
-                                        <i class="fa-solid fa-at fa-fw fa-lg"></i>
-                                    </a>
-                                </span>
-                            
-                        
-                    
-                        
-                            
-                            
-                            
-                            
-                            
-                            
-                                <span class="social-contact-item">
-                                    <a target="_blank" href="https://instagram.com">
-                                        <i class="fa-brands fa-telegram fa-fw fa-lg"></i>
-                                    </a>
-                                </span>
-                            
-                        
-                    
-                    
-                </div>
-            </div>
-        
-    </div>
-    <style>
-        /* Mobile-specific QR code styles */
-        .qr-toggle-item.qr-active .qr-popup {
-            visibility: visible !important;
-            opacity: 1 !important;
-            transform: translateY(0) !important;
-        }
-        
-        /* Prevent button from staying in focus/hover state on mobile */
-        @media (hover: none) and (pointer: coarse) {
-            .qr-toggle-item:focus,
-            .qr-toggle-item:hover {
-                background-color: transparent;
-            }
-            
-            .qr-toggle-item .qr-trigger:focus,
-            .qr-toggle-item .qr-trigger:hover {
-                background-color: transparent;
-                color: inherit;
-            }
-            
-            /* Only show active state when explicitly toggled */
-            .qr-popup {
-                visibility: hidden !important;
-                opacity: 0 !important;
-            }
-        }
-    </style>
-</div>
-
-	
 
 	<div class="main-content-container flex flex-col justify-between min-h-dvh">
 		<div class="main-content-header">
 			<header class="navbar-container px-6 md:px-12">
-    <div class="navbar-content transition-navbar has-home-banner">
+    <div class="navbar-content transition-navbar ">
         <div class="left">
             
                 <a class="logo-image h-8 w-8 sm:w-10 sm:h-10 mr-3" href="/">
@@ -518,9 +351,9 @@
                 </a>
             
             <a class="logo-title" href="/">
-                <h1>
+                
                 ZRY的博客
-                </h1>
+                
             </a>
         </div>
 
@@ -534,7 +367,7 @@
 
                             <li class="navbar-item">
                                 <!-- Menu -->
-                                <a class="active"
+                                <a class=""
                                    href="/"
                                         >
                                     <i class="fa-regular fa-house fa-fw"></i>
@@ -585,7 +418,7 @@
 
                             <li class="navbar-item">
                                 <!-- Menu -->
-                                <a class=""
+                                <a class="active"
                                    href="/masonry/"
                                         >
                                     <i class="fa-regular fa-image fa-fw"></i>
@@ -626,7 +459,7 @@
 
                     <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
                         
-                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full active"
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
                            href="/"
                         >
                             <span>
@@ -686,7 +519,7 @@
 
                     <li class="drawer-navbar-item text-base my-1.5 flex flex-col w-full">
                         
-                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full "
+                        <a class="py-1.5 px-2 flex flex-row items-center justify-between gap-1 hover:!text-primary active:!text-primary text-2xl font-semibold group border-b border-border-color hover:border-primary w-full active"
                            href="/masonry/"
                         >
                             <span>
@@ -731,182 +564,26 @@
 
 		<div class="main-content-body transition-fade-up">
 			
-			<div class="home-sidebar-container">
-    <div class="sticky-container sticky">
-        
-        
-            
-            <div class="sidebar-content" >
-                <div class="avatar flex justify-center">
-    <img src="/images/image.ico">
-</div>
-                <div class="author flex flex-col justify-center my-2.5 mx-0">
-    <div class="name">ZRY-Kevin</div>
-    
-        <div class="label">Lv1</div>
-    
-</div>
-                <div class="statistics flex justify-around my-2.5">
-    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/tags">
-        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">4</div>
-        <div class="label text-third-text-color text-sm">标签</div>
-    </a>
-    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/categories">
-        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">0</div>
-        <div class="label text-third-text-color text-sm">分类</div>
-    </a>
-    <a class="item tag-count-item flex flex-col justify-center items-center w-20" href="/archives">
-        <div class="number text-2xl sm:text-xl text-second-text-color font-semibold">2</div>
-        <div class="label text-third-text-color text-sm">文章</div>
-    </a>
-</div>
-            </div>
-        
-
-    </div>
-</div>
-
-			
 
 			<div class="main-content">
-				<div class="home-content-container">
-    <ul class="home-article-list">
-        
-            <li class="home-article-item">
+				
 
-                
 
-                
+<div class="py-8 sm:py-0">
+	<h1 class="page-title-header">
+		相册
+	</h1>
 
-                
-                <div class="flex flex-col gap-5 px-7 pb-7 pt-7">
-                    <h3 class="home-article-title">
-                        <a href="/2026/05/03/%E5%85%A5%E7%AB%99%E9%A1%BB%E7%9F%A5-Station-Entry-Instructions/">
-                            入站须知 - Station Entry Instructions
-                        </a>
-                    </h3>
+	<div class="min-h-screen!" id="masonry-container" data-masonry-data-url="/masonry/data.json"></div>
 
-                    <div class="home-article-content markdown-body">
-                        
-                            
-                            温馨提示
-请仔细阅读以下内容并遵守。
-点击右侧大纲可进行跳转，不需要时可收起以提升阅读体验。
+	<div class="masonry-loadmore is-hidden" id="masonry-loadmore" aria-live="polite">
+		<span class="masonry-spinner" aria-hidden="true"></span>
+		<span class="masonry-loadmore-text">照片加载中...</span>
+	</div>
 
-Before Your Read
-Please read the following content carefully and comply with it.
-Click on the outline on the right to jump,or close it for a better r...
-                        
-                    </div>
-
-                    <div class="home-article-meta-info-container">
-    <div class="home-article-meta-info">
-        <span><i class="fa-solid fa-calendars"></i>&nbsp;
-            <span class="home-article-date" data-date="Sun May 03 2026 21:09:52 GMT+0800">
-                
-                    2026-05-03 21:09:52
-                
-            </span>
-        </span>
-        
-        
-            <span class="home-article-tag">
-                <i class="fa-solid fa-tags"></i>&nbsp;
-                <ul>
-                    
-                        <li>
-                            
-                            <a href="/tags/%E5%85%AC%E5%91%8A/">公告</a>&nbsp;
-                        </li>
-                    
-                        <li>
-                            | 
-                            <a href="/tags/%E5%BF%85%E7%9C%8B/">必看</a>&nbsp;
-                        </li>
-                    
-                </ul>
-            </span>
-        
-    </div>
-
-    <a href="/2026/05/03/%E5%85%A5%E7%AB%99%E9%A1%BB%E7%9F%A5-Station-Entry-Instructions/">阅读全文<span class="seo-reader-text">入站须知 - Station Entry Instructions</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
+	<div id="masonry-sentinel" aria-hidden="true"></div>
 </div>
 
-                </div>
-            </li>
-        
-            <li class="home-article-item">
-
-                
-
-                
-
-                
-                <div class="flex flex-col gap-5 px-7 pb-7 pt-7">
-                    <h3 class="home-article-title">
-                        <a href="/2026/05/02/%E7%88%B1%E5%9B%BD%E7%88%B1%E5%85%9A%E7%88%B1%E4%BA%BA%E6%B0%91/">
-                            爱国爱党爱人民——一群爱国人士的宣讲
-                        </a>
-                    </h3>
-
-                    <div class="home-article-content markdown-body">
-                        
-                            
-                            温馨提示
-本文转载自note.ms&#x2F;yxb
-本文仅代表本人政治立场。
-
-正文同志，请不要删除它！！
-共产者联合计划： 我们向全部来自note.ms的无产者们申请，加入我们！ 我们有着共同的目标与决心！！坚信着共产主义！！ 请维护这些网址的和平！！打倒诈骗！ 请守卫：
-note.ms&#x2F;10086note.ms&#x2F;chinanote.ms&#x2F;Chinanote...
-                        
-                    </div>
-
-                    <div class="home-article-meta-info-container">
-    <div class="home-article-meta-info">
-        <span><i class="fa-solid fa-calendars"></i>&nbsp;
-            <span class="home-article-date" data-date="Sat May 02 2026 22:39:22 GMT+0800">
-                
-                    2026-05-02 22:39:22
-                
-            </span>
-        </span>
-        
-        
-            <span class="home-article-tag">
-                <i class="fa-solid fa-tags"></i>&nbsp;
-                <ul>
-                    
-                        <li>
-                            
-                            <a href="/tags/%E9%9A%8F%E7%AC%94/">随笔</a>&nbsp;
-                        </li>
-                    
-                        <li>
-                            | 
-                            <a href="/tags/%E6%94%BF%E6%B2%BB/">政治</a>&nbsp;
-                        </li>
-                    
-                </ul>
-            </span>
-        
-    </div>
-
-    <a href="/2026/05/02/%E7%88%B1%E5%9B%BD%E7%88%B1%E5%85%9A%E7%88%B1%E4%BA%BA%E6%B0%91/">阅读全文<span class="seo-reader-text">爱国爱党爱人民——一群爱国人士的宣讲</span>&nbsp;<i class="fa-solid fa-angle-right"></i></a>
-</div>
-
-                </div>
-            </li>
-        
-    </ul>
-
-    <div class="home-paginator px-7 py-5">
-        <div class="paginator">
-	<span class="page-number current">1</span>
-</div>
-  
-    </div>
-</div>
 
 			</div>
 
@@ -1134,7 +811,6 @@ note.ms&#x2F;10086note.ms&#x2F;chinanote.ms&#x2F;Chinanote...
         }),
     );
 </script>
-
 
 
 
