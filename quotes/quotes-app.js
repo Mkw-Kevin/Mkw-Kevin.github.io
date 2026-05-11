@@ -33,17 +33,22 @@ function renderApp(containerId) {
     if (!container) return;
     container.innerHTML = "";
 
-    // --- 搜索框（带清空按钮） ---
+    // --- 搜索框（带内嵌清空按钮） ---
     const searchRow = document.createElement("div");
     searchRow.style.display = "flex";
     searchRow.style.gap = "10px";
     searchRow.style.marginBottom = "20px";
 
+    // 搜索框容器（用于内嵌按钮）
+    const searchBoxWrapper = document.createElement("div");
+    searchBoxWrapper.style.position = "relative";
+    searchBoxWrapper.style.flex = "1";
+
     const searchBox = document.createElement("input");
     searchBox.type = "text";
-    searchBox.placeholder = "搜索名言，按回车或点击按钮查找...";
-    searchBox.style.flex = "1";
-    searchBox.style.padding = "12px 16px";
+    searchBox.placeholder = "搜索名言...";
+    searchBox.style.width = "100%";
+    searchBox.style.padding = "12px 40px 12px 16px"; // 右侧留出清空按钮的空间
     searchBox.style.fontSize = "16px";
     searchBox.style.border = "2px solid #e0e0e0";
     searchBox.style.borderRadius = "12px";
@@ -54,15 +59,20 @@ function renderApp(containerId) {
     searchBox.addEventListener("focus", () => { searchBox.style.borderColor = "#A31F34"; });
     searchBox.addEventListener("blur", () => { searchBox.style.borderColor = "#e0e0e0"; });
 
+    // 内嵌清空按钮
     const clearBtn = document.createElement("button");
     clearBtn.innerHTML = "✕";
-    clearBtn.style.padding = "8px 12px";
+    clearBtn.style.position = "absolute";
+    clearBtn.style.right = "12px";
+    clearBtn.style.top = "50%";
+    clearBtn.style.transform = "translateY(-50%)";
     clearBtn.style.background = "transparent";
     clearBtn.style.border = "none";
-    clearBtn.style.fontSize = "18px";
+    clearBtn.style.fontSize = "16px";
     clearBtn.style.cursor = "pointer";
     clearBtn.style.color = "#999";
-    clearBtn.style.display = searchBox.value ? "inline" : "none";
+    clearBtn.style.padding = "0";
+    clearBtn.style.display = searchBox.value ? "block" : "none";
     clearBtn.addEventListener("click", () => {
         searchBox.value = "";
         state.searchKeyword = "";
@@ -70,6 +80,7 @@ function renderApp(containerId) {
         renderApp(containerId);
     });
 
+    // 搜索按钮
     const searchBtn = document.createElement("button");
     searchBtn.textContent = "搜索";
     searchBtn.style.padding = "10px 20px";
@@ -81,6 +92,7 @@ function renderApp(containerId) {
     searchBtn.style.fontSize = "16px";
     searchBtn.style.fontFamily = "inherit";
 
+    // 搜索触发函数
     const doSearch = () => {
         state.searchKeyword = searchBox.value.trim();
         renderApp(containerId);
@@ -93,12 +105,15 @@ function renderApp(containerId) {
     });
     searchBtn.addEventListener("click", doSearch);
 
+    // 控制清空按钮显示/隐藏
     searchBox.addEventListener("input", () => {
-        clearBtn.style.display = searchBox.value ? "inline" : "none";
+        clearBtn.style.display = searchBox.value ? "block" : "none";
     });
 
-    searchRow.appendChild(searchBox);
-    searchRow.appendChild(clearBtn);
+    // 组装搜索区域
+    searchBoxWrapper.appendChild(searchBox);
+    searchBoxWrapper.appendChild(clearBtn);
+    searchRow.appendChild(searchBoxWrapper);
     searchRow.appendChild(searchBtn);
     container.appendChild(searchRow);
 
