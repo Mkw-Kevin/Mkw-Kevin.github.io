@@ -27,7 +27,7 @@ const state = {
     searchKeyword: ""
 };
 
-// ========== 4. 主渲染函数 ==========
+// ========== 4. 主渲染函数（只负责搭建框架，不重复渲染搜索框和标签） ==========
 function renderApp(containerId) {
     const container = document.getElementById(containerId);
     if (!container) return;
@@ -46,7 +46,7 @@ function renderApp(containerId) {
 
     const searchBox = document.createElement("input");
     searchBox.type = "text";
-    searchBox.placeholder = "搜索好言...";
+    searchBox.placeholder = "搜索好言...";  // 你要求的默认提示文字
     searchBox.style.width = "100%";
     searchBox.style.padding = "12px 40px 12px 16px";
     searchBox.style.fontSize = "16px";
@@ -79,18 +79,18 @@ function renderApp(containerId) {
         searchBox.value = "";
         state.searchKeyword = "";
         clearBtn.style.display = "none";
-        renderQuoteList(document.querySelector("#app div:last-child"));
+        // 只更新下方的列表
+        const quoteListContainer = document.getElementById("quote-list-container");
+        if (quoteListContainer) renderQuoteList(quoteListContainer);
     });
 
-    // 输入即搜：每次输入内容变化，立即更新状态并重新渲染语录列表
+    // 输入即搜：每次输入内容变化，更新状态并重新渲染下方的语录列表
     searchBox.addEventListener("input", () => {
         state.searchKeyword = searchBox.value.trim();
         clearBtn.style.display = searchBox.value ? "block" : "none";
-        // 直接重新渲染语录列表，不重建整个页面
-        const quoteListContainer = document.querySelector("#app div:last-child");
-        if (quoteListContainer) {
-            renderQuoteList(quoteListContainer);
-        }
+        // 只找到下面的列表容器进行更新
+        const quoteListContainer = document.getElementById("quote-list-container");
+        if (quoteListContainer) renderQuoteList(quoteListContainer);
     });
 
     // 组装搜索区域
@@ -99,7 +99,7 @@ function renderApp(containerId) {
     searchRow.appendChild(searchBoxWrapper);
     container.appendChild(searchRow);
 
-    // --- 分类标签按钮 ---
+    // --- 分类标签按钮（只创建一次） ---
     const tagContainer = document.createElement("div");
     tagContainer.style.display = "flex";
     tagContainer.style.flexWrap = "wrap";
@@ -120,6 +120,7 @@ function renderApp(containerId) {
         tagBtn.style.transition = "all 0.2s";
         tagBtn.style.fontFamily = "inherit";
 
+        // 鼠标悬停效果（非激活按钮）
         if (tag !== state.currentTag) {
             tagBtn.addEventListener("mouseenter", () => {
                 tagBtn.style.borderColor = "#A31F34";
@@ -131,22 +132,49 @@ function renderApp(containerId) {
             });
         }
 
+        // 点击分类按钮：更新状态、清空搜索框、重新渲染列表
         tagBtn.addEventListener("click", () => {
             state.currentTag = tag;
             state.searchKeyword = "";
-            renderApp(containerId);
+            // 同步清空搜索框
+            searchBox.value = "";
+            clearBtn.style.display = "none";
+            // 重新渲染分类按钮样式和列表
+            renderTagButtons(tagContainer, allTags);
+            const quoteListContainer = document.getElementById("quote-list-container");
+            if (quoteListContainer) renderQuoteList(quoteListContainer);
         });
         tagContainer.appendChild(tagBtn);
     });
     container.appendChild(tagContainer);
 
-    // --- 语录列表容器 ---
+    // --- 语录列表容器（给予固定 id，方便后续直接操作） ---
     const quoteListContainer = document.createElement("div");
+    quoteListContainer.id = "quote-list-container";
     container.appendChild(quoteListContainer);
+
+    // 首次渲染列表
     renderQuoteList(quoteListContainer);
 }
 
-// ========== 5. 渲染语录列表 ==========
+// ========== 5. 更新分类标签按钮的激活样式 ==========
+function renderTagButtons(tagContainer, allTags) {
+    const buttons = tagContainer.querySelectorAll("button");
+    buttons.forEach(btn => {
+        const tag = btn.textContent;
+        if (tag === state.currentTag) {
+            btn.style.background = "#A31F34";
+            btn.style.color = "#fff";
+            btn.style.borderColor = "#A31F34";
+        } else {
+            btn.style.background = "transparent";
+            btn.style.color = "#555";
+            btn.style.borderColor = "#e0e0e0";
+        }
+    });
+}
+
+// ========== 6. 渲染语录列表（只更新卡片区域） ==========
 function renderQuoteList(container) {
     container.innerHTML = "";
 
@@ -165,7 +193,7 @@ function renderQuoteList(container) {
 
     if (filtered.length === 0) {
         const emptyMsg = document.createElement("p");
-        emptyMsg.textContent = "没有找到匹配的名言。";
+        emptyMsg.textContent = "没有找到匹配的好言。";
         emptyMsg.style.textAlign = "center";
         emptyMsg.style.color = "#888";
         emptyMsg.style.padding = "40px 0";
@@ -240,7 +268,7 @@ function renderQuoteList(container) {
     });
 }
 
-// ========== 6. 启动一切 ==========
+// ========== 7. 启动一切 ==========
 document.addEventListener("DOMContentLoaded", function() {
     renderApp("app");
 });
