@@ -33,7 +33,7 @@ function renderApp(containerId) {
     if (!container) return;
     container.innerHTML = "";
 
-    // --- 搜索框（带内嵌清空按钮） ---
+    // --- 搜索框（输入即搜，带内嵌清空按钮） ---
     const searchRow = document.createElement("div");
     searchRow.style.display = "flex";
     searchRow.style.gap = "10px";
@@ -46,9 +46,9 @@ function renderApp(containerId) {
 
     const searchBox = document.createElement("input");
     searchBox.type = "text";
-    searchBox.placeholder = "搜索名言...";
+    searchBox.placeholder = "搜索好言...";
     searchBox.style.width = "100%";
-    searchBox.style.padding = "12px 40px 12px 16px"; // 右侧留出清空按钮的空间
+    searchBox.style.padding = "12px 40px 12px 16px";
     searchBox.style.fontSize = "16px";
     searchBox.style.border = "2px solid #e0e0e0";
     searchBox.style.borderRadius = "12px";
@@ -73,48 +73,30 @@ function renderApp(containerId) {
     clearBtn.style.color = "#999";
     clearBtn.style.padding = "0";
     clearBtn.style.display = searchBox.value ? "block" : "none";
+
+    // 清空按钮点击
     clearBtn.addEventListener("click", () => {
         searchBox.value = "";
         state.searchKeyword = "";
         clearBtn.style.display = "none";
-        renderApp(containerId);
+        renderQuoteList(document.querySelector("#app div:last-child"));
     });
 
-    // 搜索按钮
-    const searchBtn = document.createElement("button");
-    searchBtn.textContent = "搜索";
-    searchBtn.style.padding = "10px 20px";
-    searchBtn.style.background = "#A31F34";
-    searchBtn.style.color = "#fff";
-    searchBtn.style.border = "none";
-    searchBtn.style.borderRadius = "12px";
-    searchBtn.style.cursor = "pointer";
-    searchBtn.style.fontSize = "16px";
-    searchBtn.style.fontFamily = "inherit";
-
-    // 搜索触发函数
-    const doSearch = () => {
-        state.searchKeyword = searchBox.value.trim();
-        renderApp(containerId);
-    };
-    searchBox.addEventListener("keydown", (e) => {
-        if (e.key === "Enter") {
-            e.preventDefault();
-            doSearch();
-        }
-    });
-    searchBtn.addEventListener("click", doSearch);
-
-    // 控制清空按钮显示/隐藏
+    // 输入即搜：每次输入内容变化，立即更新状态并重新渲染语录列表
     searchBox.addEventListener("input", () => {
+        state.searchKeyword = searchBox.value.trim();
         clearBtn.style.display = searchBox.value ? "block" : "none";
+        // 直接重新渲染语录列表，不重建整个页面
+        const quoteListContainer = document.querySelector("#app div:last-child");
+        if (quoteListContainer) {
+            renderQuoteList(quoteListContainer);
+        }
     });
 
     // 组装搜索区域
     searchBoxWrapper.appendChild(searchBox);
     searchBoxWrapper.appendChild(clearBtn);
     searchRow.appendChild(searchBoxWrapper);
-    searchRow.appendChild(searchBtn);
     container.appendChild(searchRow);
 
     // --- 分类标签按钮 ---
