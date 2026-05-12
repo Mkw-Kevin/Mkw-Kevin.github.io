@@ -1,5 +1,4 @@
 // ========== 1. 定义你的语录数据 ==========
-// 格式：{ content: "语录内容", author: "作者名", tags: ["分类1", "分类2"] }
 const quotes = [
     { content: "世上只有一种英雄主义，就是在认清生活真相之后依然热爱生活。", author: "罗曼·罗兰", tags: ["文学", "人生"] },
     { content: "且视他人之疑目如盏盏鬼火，大胆地去走你的夜路。", author: "史铁生", tags: ["文学", "勇气"] },
@@ -8,45 +7,41 @@ const quotes = [
     { content: "人生如逆旅，我亦是行人。", author: "苏轼", tags: ["文学", "人生"] },
     { content: "你必须活在当下，乘着每一个波浪，在每一刻找到你的永恒。", author: "梭罗", tags: ["人生", "自然"] },
     { content: "对未来的真正慷慨，是把一切都献给现在。", author: "阿尔贝·加缪", tags: ["人生", "哲学"] },
-    // 你可以继续添加更多...
 ];
 
 // ========== 2. 获取所有分类 ==========
 function getAllTags() {
     const tags = new Set();
-    tags.add("全部");
     quotes.forEach(q => {
         q.tags.forEach(tag => tags.add(tag));
     });
     return Array.from(tags);
 }
 
-// ========== 3. 存放当前状态 ==========
+// ========== 3. 状态（多选数组） ==========
 const state = {
-    currentTag: "全部",
+    selectedTags: [], // 改为数组，支持多选
     searchKeyword: ""
 };
 
-// ========== 4. 主渲染函数（只负责搭建框架，不重复渲染搜索框和标签） ==========
+// ========== 4. 主渲染函数 ==========
 function renderApp(containerId) {
     const container = document.getElementById(containerId);
     if (!container) return;
     container.innerHTML = "";
 
-    // --- 搜索框（输入即搜，带内嵌清空按钮） ---
+    // --- 顶部搜索框（保持不变） ---
     const searchRow = document.createElement("div");
     searchRow.style.display = "flex";
-    searchRow.style.gap = "10px";
     searchRow.style.marginBottom = "20px";
 
-    // 搜索框容器（用于内嵌按钮）
     const searchBoxWrapper = document.createElement("div");
     searchBoxWrapper.style.position = "relative";
     searchBoxWrapper.style.flex = "1";
 
     const searchBox = document.createElement("input");
     searchBox.type = "text";
-    searchBox.placeholder = "搜索好言...";  // 你要求的默认提示文字
+    searchBox.placeholder = "搜索好言...";
     searchBox.style.width = "100%";
     searchBox.style.padding = "12px 40px 12px 16px";
     searchBox.style.fontSize = "16px";
@@ -54,12 +49,10 @@ function renderApp(containerId) {
     searchBox.style.borderRadius = "12px";
     searchBox.style.boxSizing = "border-box";
     searchBox.style.outline = "none";
-    searchBox.style.transition = "border-color 0.2s";
     searchBox.value = state.searchKeyword;
     searchBox.addEventListener("focus", () => { searchBox.style.borderColor = "#A31F34"; });
     searchBox.addEventListener("blur", () => { searchBox.style.borderColor = "#e0e0e0"; });
 
-    // 内嵌清空按钮
     const clearBtn = document.createElement("button");
     clearBtn.innerHTML = "✕";
     clearBtn.style.position = "absolute";
@@ -71,117 +64,197 @@ function renderApp(containerId) {
     clearBtn.style.fontSize = "16px";
     clearBtn.style.cursor = "pointer";
     clearBtn.style.color = "#999";
-    clearBtn.style.padding = "0";
     clearBtn.style.display = searchBox.value ? "block" : "none";
-
-    // 清空按钮点击
     clearBtn.addEventListener("click", () => {
         searchBox.value = "";
         state.searchKeyword = "";
         clearBtn.style.display = "none";
-        // 只更新下方的列表
         const quoteListContainer = document.getElementById("quote-list-container");
         if (quoteListContainer) renderQuoteList(quoteListContainer);
     });
 
-    // 输入即搜：每次输入内容变化，更新状态并重新渲染下方的语录列表
     searchBox.addEventListener("input", () => {
         state.searchKeyword = searchBox.value.trim();
         clearBtn.style.display = searchBox.value ? "block" : "none";
-        // 只找到下面的列表容器进行更新
         const quoteListContainer = document.getElementById("quote-list-container");
         if (quoteListContainer) renderQuoteList(quoteListContainer);
     });
 
-    // 组装搜索区域
     searchBoxWrapper.appendChild(searchBox);
     searchBoxWrapper.appendChild(clearBtn);
     searchRow.appendChild(searchBoxWrapper);
     container.appendChild(searchRow);
 
-    // --- 分类标签按钮（只创建一次） ---
-    const tagContainer = document.createElement("div");
-    tagContainer.style.display = "flex";
-    tagContainer.style.flexWrap = "wrap";
-    tagContainer.style.gap = "10px";
-    tagContainer.style.marginBottom = "32px";
+    // --- 左侧分类栏 + 右侧卡片 的整体布局 ---
+    const mainRow = document.createElement("div");
+    mainRow.style.display = "flex";
+    mainRow.style.gap = "30px";
+    mainRow.style.alignItems = "flex-start";
+
+    // --- 左侧分类栏（纵向，多选） ---
+    const sideBar = document.createElement("div");
+    sideBar.style.width = "180px";
+    sideBar.style.flexShrink = "0";
+    sideBar.style.padding = "20px 0";
+    sideBar.style.borderRight = "1px solid #eee";
+
+    const title = document.createElement("div");
+    title.textContent = "分类筛选";
+    title.style.fontWeight = "bold";
+    title.style.marginBottom = "16px";
+    title.style.fontSize = "16px";
+    sideBar.appendChild(title);
 
     const allTags = getAllTags();
     allTags.forEach(tag => {
-        const tagBtn = document.createElement("button");
-        tagBtn.textContent = tag;
-        tagBtn.style.padding = "8px 18px";
-        tagBtn.style.border = "2px solid #e0e0e0";
-        tagBtn.style.borderRadius = "24px";
-        tagBtn.style.background = tag === state.currentTag ? "#A31F34" : "transparent";
-        tagBtn.style.color = tag === state.currentTag ? "#fff" : "#555";
-        tagBtn.style.cursor = "pointer";
-        tagBtn.style.fontSize = "14px";
-        tagBtn.style.transition = "all 0.2s";
-        tagBtn.style.fontFamily = "inherit";
+        const item = document.createElement("div");
+        item.style.display = "flex";
+        item.style.alignItems = "center";
+        item.style.padding = "8px 12px";
+        item.style.marginBottom = "6px";
+        item.style.borderRadius = "8px";
+        item.style.cursor = "pointer";
+        item.style.fontSize = "14px";
+        item.style.transition = "background 0.2s";
+        item.style.color = state.selectedTags.includes(tag) ? "#A31F34" : "#555";
+        item.style.background = state.selectedTags.includes(tag) ? "#fdf0f2" : "transparent";
+        item.style.fontWeight = state.selectedTags.includes(tag) ? "600" : "normal";
 
-        // 鼠标悬停效果（非激活按钮）
-        if (tag !== state.currentTag) {
-            tagBtn.addEventListener("mouseenter", () => {
-                tagBtn.style.borderColor = "#A31F34";
-                tagBtn.style.color = "#A31F34";
-            });
-            tagBtn.addEventListener("mouseleave", () => {
-                tagBtn.style.borderColor = "#e0e0e0";
-                tagBtn.style.color = "#555";
-            });
-        }
+        // 勾选标记
+        const checkMark = document.createElement("span");
+        checkMark.style.width = "20px";
+        checkMark.style.textAlign = "center";
+        checkMark.style.marginRight = "8px";
+        checkMark.textContent = state.selectedTags.includes(tag) ? "✓" : "";
+        item.appendChild(checkMark);
 
-        // 点击分类按钮：更新状态、清空搜索框、重新渲染列表
-        tagBtn.addEventListener("click", () => {
-            state.currentTag = tag;
-            state.searchKeyword = "";
-            // 同步清空搜索框
-            searchBox.value = "";
-            clearBtn.style.display = "none";
-            // 重新渲染分类按钮样式和列表
-            renderTagButtons(tagContainer, allTags);
+        // 标签名
+        const tagText = document.createElement("span");
+        tagText.textContent = tag;
+        item.appendChild(tagText);
+
+        item.addEventListener("click", () => {
+            // 多选切换逻辑
+            const index = state.selectedTags.indexOf(tag);
+            if (index === -1) {
+                state.selectedTags.push(tag);
+            } else {
+                state.selectedTags.splice(index, 1);
+            }
+            // 重新渲染分类栏和卡片列表
+            renderTagSidebar(sideBar, allTags);
             const quoteListContainer = document.getElementById("quote-list-container");
             if (quoteListContainer) renderQuoteList(quoteListContainer);
         });
-        tagContainer.appendChild(tagBtn);
-    });
-    container.appendChild(tagContainer);
 
-    // --- 语录列表容器（给予固定 id，方便后续直接操作） ---
+        sideBar.appendChild(item);
+    });
+
+    // 清空选择按钮
+    const clearTagBtn = document.createElement("div");
+    clearTagBtn.textContent = "清空筛选";
+    clearTagBtn.style.fontSize = "12px";
+    clearTagBtn.style.color = "#999";
+    clearTagBtn.style.marginTop = "12px";
+    clearTagBtn.style.cursor = "pointer";
+    clearTagBtn.addEventListener("click", () => {
+        state.selectedTags = [];
+        renderTagSidebar(sideBar, allTags);
+        const quoteListContainer = document.getElementById("quote-list-container");
+        if (quoteListContainer) renderQuoteList(quoteListContainer);
+    });
+    sideBar.appendChild(clearTagBtn);
+
+    mainRow.appendChild(sideBar);
+
+    // --- 右侧卡片列表 ---
     const quoteListContainer = document.createElement("div");
     quoteListContainer.id = "quote-list-container";
-    container.appendChild(quoteListContainer);
+    quoteListContainer.style.flex = "1";
+    mainRow.appendChild(quoteListContainer);
+    container.appendChild(mainRow);
 
-    // 首次渲染列表
     renderQuoteList(quoteListContainer);
 }
 
-// ========== 5. 更新分类标签按钮的激活样式 ==========
-function renderTagButtons(tagContainer, allTags) {
-    const buttons = tagContainer.querySelectorAll("button");
-    buttons.forEach(btn => {
-        const tag = btn.textContent;
-        if (tag === state.currentTag) {
-            btn.style.background = "#A31F34";
-            btn.style.color = "#fff";
-            btn.style.borderColor = "#A31F34";
-        } else {
-            btn.style.background = "transparent";
-            btn.style.color = "#555";
-            btn.style.borderColor = "#e0e0e0";
-        }
+// ========== 5. 更新左侧分类栏样式（保留勾选状态） ==========
+function renderTagSidebar(sideBar, allTags) {
+    // 简单粗暴：清空并重新渲染整个侧边栏
+    sideBar.innerHTML = "";
+
+    const title = document.createElement("div");
+    title.textContent = "分类筛选";
+    title.style.fontWeight = "bold";
+    title.style.marginBottom = "16px";
+    title.style.fontSize = "16px";
+    sideBar.appendChild(title);
+
+    allTags.forEach(tag => {
+        const item = document.createElement("div");
+        item.style.display = "flex";
+        item.style.alignItems = "center";
+        item.style.padding = "8px 12px";
+        item.style.marginBottom = "6px";
+        item.style.borderRadius = "8px";
+        item.style.cursor = "pointer";
+        item.style.fontSize = "14px";
+        item.style.transition = "background 0.2s";
+        item.style.color = state.selectedTags.includes(tag) ? "#A31F34" : "#555";
+        item.style.background = state.selectedTags.includes(tag) ? "#fdf0f2" : "transparent";
+        item.style.fontWeight = state.selectedTags.includes(tag) ? "600" : "normal";
+
+        const checkMark = document.createElement("span");
+        checkMark.style.width = "20px";
+        checkMark.style.textAlign = "center";
+        checkMark.style.marginRight = "8px";
+        checkMark.textContent = state.selectedTags.includes(tag) ? "✓" : "";
+        item.appendChild(checkMark);
+
+        const tagText = document.createElement("span");
+        tagText.textContent = tag;
+        item.appendChild(tagText);
+
+        item.addEventListener("click", () => {
+            const index = state.selectedTags.indexOf(tag);
+            if (index === -1) {
+                state.selectedTags.push(tag);
+            } else {
+                state.selectedTags.splice(index, 1);
+            }
+            renderTagSidebar(sideBar, allTags);
+            const quoteListContainer = document.getElementById("quote-list-container");
+            if (quoteListContainer) renderQuoteList(quoteListContainer);
+        });
+
+        sideBar.appendChild(item);
     });
+
+    const clearTagBtn = document.createElement("div");
+    clearTagBtn.textContent = "清空筛选";
+    clearTagBtn.style.fontSize = "12px";
+    clearTagBtn.style.color = "#999";
+    clearTagBtn.style.marginTop = "12px";
+    clearTagBtn.style.cursor = "pointer";
+    clearTagBtn.addEventListener("click", () => {
+        state.selectedTags = [];
+        renderTagSidebar(sideBar, allTags);
+        const quoteListContainer = document.getElementById("quote-list-container");
+        if (quoteListContainer) renderQuoteList(quoteListContainer);
+    });
+    sideBar.appendChild(clearTagBtn);
 }
 
-// ========== 6. 渲染语录列表（只更新卡片区域） ==========
+// ========== 6. 渲染语录列表（多选逻辑） ==========
 function renderQuoteList(container) {
     container.innerHTML = "";
 
     const filtered = quotes.filter(q => {
-        if (state.currentTag !== "全部" && !q.tags.includes(state.currentTag)) {
-            return false;
+        // 多选分类筛选：只要语录的标签包含任一选中的分类，就显示
+        if (state.selectedTags.length > 0) {
+            const hasTag = q.tags.some(t => state.selectedTags.includes(t));
+            if (!hasTag) return false;
         }
+        // 搜索关键词筛选
         if (state.searchKeyword.trim() !== "") {
             const keyword = state.searchKeyword.trim().toLowerCase();
             const inContent = q.content.toLowerCase().includes(keyword);
@@ -268,7 +341,7 @@ function renderQuoteList(container) {
     });
 }
 
-// ========== 7. 启动一切 ==========
+// ========== 7. 启动 ==========
 document.addEventListener("DOMContentLoaded", function() {
     renderApp("app");
 });
