@@ -18,19 +18,78 @@ function getAllTags() {
     return Array.from(tags);
 }
 
-// ========== 3. 状态（多选数组） ==========
+// ========== 3. 检测当前是否为深色模式 ==========
+function isDarkMode() {
+    const html = document.documentElement;
+    return html.getAttribute('data-theme') === 'dark';
+}
+
+// ========== 4. 获取当前主题颜色 ==========
+function getThemeColors() {
+    const dark = isDarkMode();
+    return {
+        // 页面背景与文字
+        bg: dark ? '#1a1a1a' : '#ffffff',
+        text: dark ? '#e0e0e0' : '#222222',
+        textSecondary: dark ? '#aaaaaa' : '#666666',
+        // 卡片样式
+        cardBg: dark ? '#2a2a2a' : '#ffffff',
+        cardBorder: dark ? '#3a3a3a' : '#f0f0f0',
+        cardShadow: dark ? '0 2px 12px rgba(0,0,0,0.3)' : '0 2px 12px rgba(0,0,0,0.04)',
+        cardShadowHover: dark ? '0 6px 20px rgba(0,0,0,0.5)' : '0 6px 20px rgba(0,0,0,0.08)',
+        // 输入框样式
+        inputBg: dark ? '#2a2a2a' : '#ffffff',
+        inputBorder: dark ? '#444444' : '#e0e0e0',
+        inputBorderFocus: '#A31F34',
+        inputText: dark ? '#e0e0e0' : '#222222',
+        inputPlaceholder: dark ? '#777777' : '#999999',
+        // 分类栏样式
+        sidebarBg: dark ? '#1a1a1a' : '#ffffff',
+        sidebarBorder: dark ? '#333333' : '#eeeeee',
+        sidebarTitle: dark ? '#cccccc' : '#333333',
+        tagDefaultBg: dark ? 'transparent' : 'transparent',
+        tagDefaultColor: dark ? '#bbbbbb' : '#555555',
+        tagDefaultBorder: dark ? '#444444' : '#e0e0e0',
+        tagSelectedBg: dark ? '#3d1a1f' : '#fdf0f2',
+        tagSelectedColor: '#A31F34',
+        tagHoverBorder: '#A31F34',
+        tagHoverColor: '#A31F34',
+        // 清空按钮
+        clearTagColor: dark ? '#888888' : '#999999',
+        // 折叠按钮
+        toggleBg: dark ? '#2a2a2a' : '#f5f5f5',
+        toggleBorder: dark ? '#444444' : '#e0e0e0',
+        toggleColor: dark ? '#cccccc' : '#333333',
+        // 标签胶囊
+        tagPillBg: dark ? '#333333' : '#f5f5f5',
+        tagPillColor: dark ? '#bbbbbb' : '#777777',
+        // 空状态
+        emptyColor: dark ? '#888888' : '#888888',
+        // 清空搜索按钮
+        clearSearchColor: dark ? '#aaaaaa' : '#999999',
+    };
+}
+
+// ========== 5. 状态 ==========
 const state = {
-    selectedTags: [], // 改为数组，支持多选
-    searchKeyword: ""
+    selectedTags: [],
+    searchKeyword: "",
+    sidebarOpen: true
 };
 
-// ========== 4. 主渲染函数 ==========
+// ========== 6. 主渲染函数 ==========
 function renderApp(containerId) {
     const container = document.getElementById(containerId);
     if (!container) return;
     container.innerHTML = "";
 
-    // --- 顶部搜索框（保持不变） ---
+    const colors = getThemeColors();
+
+    // 设置容器背景色
+    container.style.background = colors.bg;
+    container.style.color = colors.text;
+
+    // --- 顶部搜索框 ---
     const searchRow = document.createElement("div");
     searchRow.style.display = "flex";
     searchRow.style.marginBottom = "20px";
@@ -45,13 +104,20 @@ function renderApp(containerId) {
     searchBox.style.width = "100%";
     searchBox.style.padding = "12px 40px 12px 16px";
     searchBox.style.fontSize = "16px";
-    searchBox.style.border = "2px solid #e0e0e0";
+    searchBox.style.background = colors.inputBg;
+    searchBox.style.color = colors.inputText;
+    searchBox.style.border = `2px solid ${colors.inputBorder}`;
     searchBox.style.borderRadius = "12px";
     searchBox.style.boxSizing = "border-box";
     searchBox.style.outline = "none";
+    searchBox.style.transition = "border-color 0.2s";
     searchBox.value = state.searchKeyword;
-    searchBox.addEventListener("focus", () => { searchBox.style.borderColor = "#A31F34"; });
-    searchBox.addEventListener("blur", () => { searchBox.style.borderColor = "#e0e0e0"; });
+    searchBox.addEventListener("focus", () => { searchBox.style.borderColor = colors.inputBorderFocus; });
+    searchBox.addEventListener("blur", () => { searchBox.style.borderColor = colors.inputBorder; });
+    
+    // 占位符颜色
+    searchBox.style.setProperty('--placeholder-color', colors.inputPlaceholder);
+    searchBox.placeholder = "搜索好言...";
 
     const clearBtn = document.createElement("button");
     clearBtn.innerHTML = "✕";
@@ -63,21 +129,21 @@ function renderApp(containerId) {
     clearBtn.style.border = "none";
     clearBtn.style.fontSize = "16px";
     clearBtn.style.cursor = "pointer";
-    clearBtn.style.color = "#999";
+    clearBtn.style.color = colors.clearSearchColor;
     clearBtn.style.display = searchBox.value ? "block" : "none";
     clearBtn.addEventListener("click", () => {
         searchBox.value = "";
         state.searchKeyword = "";
         clearBtn.style.display = "none";
         const quoteListContainer = document.getElementById("quote-list-container");
-        if (quoteListContainer) renderQuoteList(quoteListContainer);
+        if (quoteListContainer) renderQuoteList(quoteListContainer, colors);
     });
 
     searchBox.addEventListener("input", () => {
         state.searchKeyword = searchBox.value.trim();
         clearBtn.style.display = searchBox.value ? "block" : "none";
         const quoteListContainer = document.getElementById("quote-list-container");
-        if (quoteListContainer) renderQuoteList(quoteListContainer);
+        if (quoteListContainer) renderQuoteList(quoteListContainer, colors);
     });
 
     searchBoxWrapper.appendChild(searchBox);
@@ -85,134 +151,117 @@ function renderApp(containerId) {
     searchRow.appendChild(searchBoxWrapper);
     container.appendChild(searchRow);
 
-    // --- 左侧分类栏 + 右侧卡片 的整体布局 ---
+    // --- 可折叠侧边栏按钮 ---
+    const toggleBtn = document.createElement("button");
+    toggleBtn.innerHTML = "☰ 分类";
+    toggleBtn.style.padding = "8px 16px";
+    toggleBtn.style.marginBottom = "12px";
+    toggleBtn.style.background = colors.toggleBg;
+    toggleBtn.style.color = colors.toggleColor;
+    toggleBtn.style.border = `1px solid ${colors.toggleBorder}`;
+    toggleBtn.style.borderRadius = "8px";
+    toggleBtn.style.cursor = "pointer";
+    toggleBtn.style.fontSize = "14px";
+    container.appendChild(toggleBtn);
+
+    // --- 主布局（侧边栏 + 右侧列表） ---
     const mainRow = document.createElement("div");
     mainRow.style.display = "flex";
     mainRow.style.gap = "30px";
     mainRow.style.alignItems = "flex-start";
 
-    // --- 左侧分类栏（纵向，多选） ---
+    const sideBarWrapper = document.createElement("div");
+    sideBarWrapper.id = "sidebar-wrapper";
+    sideBarWrapper.style.width = state.sidebarOpen ? "180px" : "0";
+    sideBarWrapper.style.overflow = "hidden";
+    sideBarWrapper.style.transition = "width 0.3s ease";
+    sideBarWrapper.style.flexShrink = "0";
+
     const sideBar = document.createElement("div");
     sideBar.style.width = "180px";
-    sideBar.style.flexShrink = "0";
-    sideBar.style.padding = "20px 0";
-    sideBar.style.borderRight = "1px solid #eee";
+    sideBar.style.padding = state.sidebarOpen ? "12px 0" : "0";
+    sideBar.style.borderRight = state.sidebarOpen ? `1px solid ${colors.sidebarBorder}` : "none";
+    sideBar.style.transition = "padding 0.3s, border-color 0.3s";
+    sideBar.style.background = colors.sidebarBg;
 
-    const title = document.createElement("div");
-    title.textContent = "分类筛选";
-    title.style.fontWeight = "bold";
-    title.style.marginBottom = "16px";
-    title.style.fontSize = "16px";
-    sideBar.appendChild(title);
-
-    const allTags = getAllTags();
-    allTags.forEach(tag => {
-        const item = document.createElement("div");
-        item.style.display = "flex";
-        item.style.alignItems = "center";
-        item.style.padding = "8px 12px";
-        item.style.marginBottom = "6px";
-        item.style.borderRadius = "8px";
-        item.style.cursor = "pointer";
-        item.style.fontSize = "14px";
-        item.style.transition = "background 0.2s";
-        item.style.color = state.selectedTags.includes(tag) ? "#A31F34" : "#555";
-        item.style.background = state.selectedTags.includes(tag) ? "#fdf0f2" : "transparent";
-        item.style.fontWeight = state.selectedTags.includes(tag) ? "600" : "normal";
-
-        // 勾选标记
-        const checkMark = document.createElement("span");
-        checkMark.style.width = "20px";
-        checkMark.style.textAlign = "center";
-        checkMark.style.marginRight = "8px";
-        checkMark.textContent = state.selectedTags.includes(tag) ? "✓" : "";
-        item.appendChild(checkMark);
-
-        // 标签名
-        const tagText = document.createElement("span");
-        tagText.textContent = tag;
-        item.appendChild(tagText);
-
-        item.addEventListener("click", () => {
-            // 多选切换逻辑
-            const index = state.selectedTags.indexOf(tag);
-            if (index === -1) {
-                state.selectedTags.push(tag);
-            } else {
-                state.selectedTags.splice(index, 1);
-            }
-            // 重新渲染分类栏和卡片列表
-            renderTagSidebar(sideBar, allTags);
-            const quoteListContainer = document.getElementById("quote-list-container");
-            if (quoteListContainer) renderQuoteList(quoteListContainer);
-        });
-
-        sideBar.appendChild(item);
-    });
-
-    // 清空选择按钮
     const clearTagBtn = document.createElement("div");
     clearTagBtn.textContent = "清空筛选";
     clearTagBtn.style.fontSize = "12px";
-    clearTagBtn.style.color = "#999";
+    clearTagBtn.style.color = colors.clearTagColor;
     clearTagBtn.style.marginTop = "12px";
     clearTagBtn.style.cursor = "pointer";
+    clearTagBtn.style.display = state.sidebarOpen ? "block" : "none";
     clearTagBtn.addEventListener("click", () => {
         state.selectedTags = [];
-        renderTagSidebar(sideBar, allTags);
+        renderSidebarContent(sideBar, clearTagBtn, colors);
         const quoteListContainer = document.getElementById("quote-list-container");
-        if (quoteListContainer) renderQuoteList(quoteListContainer);
+        if (quoteListContainer) renderQuoteList(quoteListContainer, colors);
     });
+
+    renderSidebarContent(sideBar, clearTagBtn, colors);
     sideBar.appendChild(clearTagBtn);
+    sideBarWrapper.appendChild(sideBar);
+    mainRow.appendChild(sideBarWrapper);
 
-    mainRow.appendChild(sideBar);
-
-    // --- 右侧卡片列表 ---
     const quoteListContainer = document.createElement("div");
     quoteListContainer.id = "quote-list-container";
     quoteListContainer.style.flex = "1";
     mainRow.appendChild(quoteListContainer);
     container.appendChild(mainRow);
 
-    renderQuoteList(quoteListContainer);
+    toggleBtn.addEventListener("click", () => {
+        state.sidebarOpen = !state.sidebarOpen;
+        sideBarWrapper.style.width = state.sidebarOpen ? "180px" : "0";
+        sideBar.style.padding = state.sidebarOpen ? "12px 0" : "0";
+        sideBar.style.borderRight = state.sidebarOpen ? `1px solid ${colors.sidebarBorder}` : "none";
+        clearTagBtn.style.display = state.sidebarOpen ? "block" : "none";
+        renderSidebarContent(sideBar, clearTagBtn, colors);
+    });
+
+    renderQuoteList(quoteListContainer, colors);
 }
 
-// ========== 5. 更新左侧分类栏样式（保留勾选状态） ==========
-function renderTagSidebar(sideBar, allTags) {
-    // 简单粗暴：清空并重新渲染整个侧边栏
+// ========== 7. 渲染侧边栏内容 ==========
+function renderSidebarContent(sideBar, clearTagBtn, colors) {
     sideBar.innerHTML = "";
-
-    const title = document.createElement("div");
-    title.textContent = "分类筛选";
-    title.style.fontWeight = "bold";
-    title.style.marginBottom = "16px";
-    title.style.fontSize = "16px";
-    sideBar.appendChild(title);
-
+    
+    const allTags = getAllTags();
     allTags.forEach(tag => {
         const item = document.createElement("div");
-        item.style.display = "flex";
-        item.style.alignItems = "center";
         item.style.padding = "8px 12px";
         item.style.marginBottom = "6px";
         item.style.borderRadius = "8px";
         item.style.cursor = "pointer";
         item.style.fontSize = "14px";
-        item.style.transition = "background 0.2s";
-        item.style.color = state.selectedTags.includes(tag) ? "#A31F34" : "#555";
-        item.style.background = state.selectedTags.includes(tag) ? "#fdf0f2" : "transparent";
-        item.style.fontWeight = state.selectedTags.includes(tag) ? "600" : "normal";
+        item.style.transition = "background 0.2s, color 0.2s, border-color 0.2s";
+        item.style.border = "2px solid transparent";
 
-        const checkMark = document.createElement("span");
-        checkMark.style.width = "20px";
-        checkMark.style.textAlign = "center";
-        checkMark.style.marginRight = "8px";
-        checkMark.textContent = state.selectedTags.includes(tag) ? "✓" : "";
-        item.appendChild(checkMark);
+        if (state.selectedTags.includes(tag)) {
+            item.style.color = colors.tagSelectedColor;
+            item.style.background = colors.tagSelectedBg;
+            item.style.fontWeight = "600";
+            item.style.borderColor = colors.tagSelectedColor;
+        } else {
+            item.style.color = colors.tagDefaultColor;
+            item.style.background = colors.tagDefaultBg;
+            item.style.fontWeight = "normal";
+            item.style.borderColor = "transparent";
+        }
 
-        const tagText = document.createElement("span");
-        tagText.textContent = tag;
-        item.appendChild(tagText);
+        item.textContent = tag;
+
+        item.addEventListener("mouseenter", () => {
+            if (!state.selectedTags.includes(tag)) {
+                item.style.borderColor = colors.tagHoverBorder;
+                item.style.color = colors.tagHoverColor;
+            }
+        });
+        item.addEventListener("mouseleave", () => {
+            if (!state.selectedTags.includes(tag)) {
+                item.style.borderColor = "transparent";
+                item.style.color = colors.tagDefaultColor;
+            }
+        });
 
         item.addEventListener("click", () => {
             const index = state.selectedTags.indexOf(tag);
@@ -221,40 +270,28 @@ function renderTagSidebar(sideBar, allTags) {
             } else {
                 state.selectedTags.splice(index, 1);
             }
-            renderTagSidebar(sideBar, allTags);
+            renderSidebarContent(sideBar, clearTagBtn, colors);
             const quoteListContainer = document.getElementById("quote-list-container");
-            if (quoteListContainer) renderQuoteList(quoteListContainer);
+            if (quoteListContainer) renderQuoteList(quoteListContainer, colors);
         });
 
         sideBar.appendChild(item);
     });
 
-    const clearTagBtn = document.createElement("div");
-    clearTagBtn.textContent = "清空筛选";
-    clearTagBtn.style.fontSize = "12px";
-    clearTagBtn.style.color = "#999";
-    clearTagBtn.style.marginTop = "12px";
-    clearTagBtn.style.cursor = "pointer";
-    clearTagBtn.addEventListener("click", () => {
-        state.selectedTags = [];
-        renderTagSidebar(sideBar, allTags);
-        const quoteListContainer = document.getElementById("quote-list-container");
-        if (quoteListContainer) renderQuoteList(quoteListContainer);
-    });
-    sideBar.appendChild(clearTagBtn);
+    if (clearTagBtn) {
+        sideBar.appendChild(clearTagBtn);
+    }
 }
 
-// ========== 6. 渲染语录列表（多选逻辑） ==========
-function renderQuoteList(container) {
+// ========== 8. 渲染语录列表 ==========
+function renderQuoteList(container, colors) {
     container.innerHTML = "";
 
     const filtered = quotes.filter(q => {
-        // 多选分类筛选：只要语录的标签包含任一选中的分类，就显示
         if (state.selectedTags.length > 0) {
             const hasTag = q.tags.some(t => state.selectedTags.includes(t));
             if (!hasTag) return false;
         }
-        // 搜索关键词筛选
         if (state.searchKeyword.trim() !== "") {
             const keyword = state.searchKeyword.trim().toLowerCase();
             const inContent = q.content.toLowerCase().includes(keyword);
@@ -268,7 +305,7 @@ function renderQuoteList(container) {
         const emptyMsg = document.createElement("p");
         emptyMsg.textContent = "没有找到匹配的好言。";
         emptyMsg.style.textAlign = "center";
-        emptyMsg.style.color = "#888";
+        emptyMsg.style.color = colors.emptyColor;
         emptyMsg.style.padding = "40px 0";
         container.appendChild(emptyMsg);
         return;
@@ -276,21 +313,21 @@ function renderQuoteList(container) {
 
     filtered.forEach(quote => {
         const card = document.createElement("blockquote");
-        card.style.background = "#fff";
-        card.style.border = "1px solid #f0f0f0";
+        card.style.background = colors.cardBg;
+        card.style.border = `1px solid ${colors.cardBorder}`;
         card.style.borderRadius = "16px";
         card.style.padding = "24px 28px";
         card.style.margin = "0 0 20px 0";
-        card.style.boxShadow = "0 2px 12px rgba(0,0,0,0.04)";
+        card.style.boxShadow = colors.cardShadow;
         card.style.transition = "box-shadow 0.2s, transform 0.2s";
         card.style.lineHeight = "1.7";
 
         card.addEventListener("mouseenter", () => {
-            card.style.boxShadow = "0 6px 20px rgba(0,0,0,0.08)";
+            card.style.boxShadow = colors.cardShadowHover;
             card.style.transform = "translateY(-2px)";
         });
         card.addEventListener("mouseleave", () => {
-            card.style.boxShadow = "0 2px 12px rgba(0,0,0,0.04)";
+            card.style.boxShadow = colors.cardShadow;
             card.style.transform = "none";
         });
 
@@ -299,7 +336,7 @@ function renderQuoteList(container) {
         contentP.style.margin = "0 0 12px 0";
         contentP.style.fontSize = "18px";
         contentP.style.fontWeight = "500";
-        contentP.style.color = "#222";
+        contentP.style.color = colors.text;
         contentP.style.fontStyle = "italic";
         card.appendChild(contentP);
 
@@ -313,7 +350,7 @@ function renderQuoteList(container) {
         if (quote.author) {
             const authorSpan = document.createElement("span");
             authorSpan.textContent = "—— " + quote.author;
-            authorSpan.style.color = "#666";
+            authorSpan.style.color = colors.textSecondary;
             authorSpan.style.fontSize = "14px";
             bottomRow.appendChild(authorSpan);
         }
@@ -327,10 +364,10 @@ function renderQuoteList(container) {
                 const tagSpan = document.createElement("span");
                 tagSpan.textContent = tag;
                 tagSpan.style.padding = "3px 12px";
-                tagSpan.style.background = "#f5f5f5";
+                tagSpan.style.background = colors.tagPillBg;
                 tagSpan.style.borderRadius = "16px";
                 tagSpan.style.fontSize = "12px";
-                tagSpan.style.color = "#777";
+                tagSpan.style.color = colors.tagPillColor;
                 tagsRow.appendChild(tagSpan);
             });
             bottomRow.appendChild(tagsRow);
@@ -341,7 +378,17 @@ function renderQuoteList(container) {
     });
 }
 
-// ========== 7. 启动 ==========
+// ========== 9. 启动并监听深色模式切换 ==========
 document.addEventListener("DOMContentLoaded", function() {
     renderApp("app");
+    
+    // 监听主题切换事件（Redefine 主题切换时重新渲染）
+    const observer = new MutationObserver(function(mutations) {
+        mutations.forEach(function(mutation) {
+            if (mutation.attributeName === 'data-theme') {
+                renderApp("app");
+            }
+        });
+    });
+    observer.observe(document.documentElement, { attributes: true });
 });
