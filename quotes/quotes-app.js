@@ -22,7 +22,7 @@ function getAllTags() {
 const state = {
     selectedTags: [],
     searchKeyword: "",
-    sidebarOpen: true // 侧边栏默认展开
+    sidebarOpen: true
 };
 
 // ========== 4. 主渲染函数 ==========
@@ -104,7 +104,7 @@ function renderApp(containerId) {
     mainRow.style.gap = "30px";
     mainRow.style.alignItems = "flex-start";
 
-    // 左侧分类栏容器（用于控制折叠）
+    // 左侧分类栏容器
     const sideBarWrapper = document.createElement("div");
     sideBarWrapper.id = "sidebar-wrapper";
     sideBarWrapper.style.width = state.sidebarOpen ? "180px" : "0";
@@ -119,25 +119,8 @@ function renderApp(containerId) {
     sideBar.style.borderRight = state.sidebarOpen ? "1px solid #eee" : "none";
     sideBar.style.transition = "padding 0.3s";
 
-    // 清空选择按钮（始终在侧边栏内部）
-    const clearTagBtn = document.createElement("div");
-    clearTagBtn.textContent = "清空筛选";
-    clearTagBtn.style.fontSize = "12px";
-    clearTagBtn.style.color = "#999";
-    clearTagBtn.style.marginTop = "12px";
-    clearTagBtn.style.cursor = "pointer";
-    clearTagBtn.style.display = state.sidebarOpen ? "block" : "none";
-    clearTagBtn.addEventListener("click", () => {
-        state.selectedTags = [];
-        // 重新渲染侧边栏和列表
-        renderSidebarContent(sideBar);
-        const quoteListContainer = document.getElementById("quote-list-container");
-        if (quoteListContainer) renderQuoteList(quoteListContainer);
-    });
-
-    // 首次填充侧边栏内容
-    renderSidebarContent(sideBar, clearTagBtn);
-    sideBar.appendChild(clearTagBtn);
+    // 首次填充侧边栏内容（包含清空按钮）
+    renderSidebarContent(sideBar);
     sideBarWrapper.appendChild(sideBar);
     mainRow.appendChild(sideBarWrapper);
 
@@ -154,17 +137,16 @@ function renderApp(containerId) {
         sideBarWrapper.style.width = state.sidebarOpen ? "180px" : "0";
         sideBar.style.padding = state.sidebarOpen ? "12px 0" : "0";
         sideBar.style.borderRight = state.sidebarOpen ? "1px solid #eee" : "none";
-        clearTagBtn.style.display = state.sidebarOpen ? "block" : "none";
-        // 重新渲染侧边栏内容（确保状态同步）
-        renderSidebarContent(sideBar, clearTagBtn);
+        // 重新渲染侧边栏内容
+        renderSidebarContent(sideBar);
     });
 
     renderQuoteList(quoteListContainer);
 }
 
-// ========== 5. 渲染侧边栏内容（不含✓，保留选中样式） ==========
-function renderSidebarContent(sideBar, clearTagBtn) {
-    // 清空除清空按钮外的内容
+// ========== 5. 渲染侧边栏内容（每次完全重建，包括清空按钮） ==========
+function renderSidebarContent(sideBar) {
+    // 彻底清空侧边栏
     sideBar.innerHTML = "";
     
     const allTags = getAllTags();
@@ -176,7 +158,7 @@ function renderSidebarContent(sideBar, clearTagBtn) {
         item.style.cursor = "pointer";
         item.style.fontSize = "14px";
         item.style.transition = "background 0.2s, color 0.2s";
-        // 选中样式：变红 + 浅红背景
+        
         if (state.selectedTags.includes(tag)) {
             item.style.color = "#A31F34";
             item.style.background = "#fdf0f2";
@@ -197,7 +179,7 @@ function renderSidebarContent(sideBar, clearTagBtn) {
                 state.selectedTags.splice(index, 1);
             }
             // 重新渲染侧边栏和列表
-            renderSidebarContent(sideBar, clearTagBtn);
+            renderSidebarContent(sideBar);
             const quoteListContainer = document.getElementById("quote-list-container");
             if (quoteListContainer) renderQuoteList(quoteListContainer);
         });
@@ -205,10 +187,21 @@ function renderSidebarContent(sideBar, clearTagBtn) {
         sideBar.appendChild(item);
     });
 
-    // 重新添加清空按钮（避免被清除）
-    if (clearTagBtn) {
-        sideBar.appendChild(clearTagBtn);
-    }
+    // --- 清空筛选按钮（每次重建，确保始终存在） ---
+    const clearTagBtn = document.createElement("div");
+    clearTagBtn.textContent = "清空筛选";
+    clearTagBtn.style.fontSize = "12px";
+    clearTagBtn.style.color = "#999";
+    clearTagBtn.style.marginTop = "12px";
+    clearTagBtn.style.cursor = "pointer";
+    clearTagBtn.style.display = state.sidebarOpen ? "block" : "none";
+    clearTagBtn.addEventListener("click", () => {
+        state.selectedTags = [];
+        renderSidebarContent(sideBar);
+        const quoteListContainer = document.getElementById("quote-list-container");
+        if (quoteListContainer) renderQuoteList(quoteListContainer);
+    });
+    sideBar.appendChild(clearTagBtn);
 }
 
 // ========== 6. 渲染语录列表（多选逻辑） ==========
